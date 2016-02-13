@@ -12,7 +12,7 @@ app.objects.Ship = function() {
 };
 
 app.objects.Ship.prototype.MAX_TURNING_VELOCITY = 40;
-app.objects.Ship.prototype.TURNING_ACCELERATION = 80;
+app.objects.Ship.prototype.TURNING_ACCELERATION = 60;
 app.objects.Ship.prototype.MAX_FORWARD_VELOCITY = 40;
 
 app.objects.Ship.prototype.updateModelMatrix = function() {
@@ -47,9 +47,9 @@ app.objects.Ship.prototype.update = function(timeDelta) {
         }
     } else {
         if (this.velocity.x < -0.1) {
-            this.acceleration.x = this.TURNING_ACCELERATION / 4;
+            this.acceleration.x = this.TURNING_ACCELERATION / 3;
         } else if (this.velocity.x > 0.1) {
-            this.acceleration.x = -this.TURNING_ACCELERATION / 4;
+            this.acceleration.x = -this.TURNING_ACCELERATION / 3;
         } else {
             this.acceleration.x = 0;
             this.velocity.x = 0;
