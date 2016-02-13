@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style/reset.css" type="text/css">
+    </head>
+    <body onload="app.start()">
+        <canvas id="glcanvas" width="1200" height="720">
+            Your browser does not support the canvas element.
+        </canvas>
+
+        <script id="shader-fs" type="x-shader/x-fragment">
+            varying lowp vec3 fragmentColor;
+
+            void main(void) {
+                gl_FragColor = vec4(fragmentColor, 1.0);
+            }
+        </script>
+
+        <script id="shader-vs" type="x-shader/x-vertex">
+            attribute vec3 vertexPosition;
+            attribute vec3 vertexNormal;
+
+            uniform mat4 projMat;
+            uniform mat4 viewMat;
+            uniform mat4 modelMat;
+            uniform vec3 color;
+
+            varying lowp vec3 fragmentColor;
+
+            void main(void) {
+                highp float scale1 = max(dot(vertexNormal, vec3(1.0, 2.0, 1.0)), 0.1);
+                highp float scale2 = max(dot(vertexNormal, vec3(-1.0, -1.0, -0.0)), 0.1);
+                fragmentColor = color + vec3(0.4, 0.4, 0.4) * scale1 + vec3(0.4, 0.4, 0.4) * scale2;
+                gl_Position = projMat * viewMat * modelMat * vec4(vertexPosition, 1.0);
+            }
+        </script>
+
+        <script type="text/javascript" src="math/matrix4.js"></script>
+        <script type="text/javascript" src="math/vector3.js"></script>
+        <script type="text/javascript" src="math/constants.js"></script>
+        <script type="text/javascript" src="camera/camera.js"></script>
+        <script type="text/javascript" src="objects/mesh.js"></script>
+        <script type="text/javascript" src="objects/ship.js"></script>
+        <script type="text/javascript" src="objects/box.js"></script>
+        <script type="text/javascript" src="objects/plane.js"></script>
+        <script type="text/javascript" src="shader/shader.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+    </body>
+</html>
