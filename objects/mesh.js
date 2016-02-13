@@ -1,22 +1,28 @@
 var app = app || {};
 app.objects = app.objects || {};
 
-app.objects.Mesh = function(vertices, normals, color) {
-    this.verticesBuffer = app.gl.createBuffer(); 
-    this.normalsBuffer = app.gl.createBuffer(); 
+app.objects.Mesh = function(vertices, normals, indices) {
     this.numberOfVertices = vertices.length / 3;
 
+    this.verticesBuffer = app.gl.createBuffer(); 
     app.gl.bindBuffer(app.gl.ARRAY_BUFFER, this.verticesBuffer);
     app.gl.bufferData(app.gl.ARRAY_BUFFER, new Float32Array(vertices), app.gl.STATIC_DRAW);
 
+    this.normalsBuffer = app.gl.createBuffer(); 
     app.gl.bindBuffer(app.gl.ARRAY_BUFFER, this.normalsBuffer);
     app.gl.bufferData(app.gl.ARRAY_BUFFER, new Float32Array(normals), app.gl.STATIC_DRAW);
 
-    this.color = color;
+    if (indices) {
+        this.indices = indices;
+        this.indicesBuffer = app.gl.createBuffer();
+        app.gl.bindBuffer(app.gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
+        app.gl.bufferData(app.gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), app.gl.STATIC_DRAW);
+    }
 };
 
 app.objects.Mesh.prototype.draw = function(shader) {
     shader.enable();
+    shader.setVec3Property("color", 0, 0, 0);
 
     app.gl.bindBuffer(app.gl.ARRAY_BUFFER, this.verticesBuffer);
     app.gl.vertexAttribPointer(shader.vertexPositionAttribute, 3, app.gl.FLOAT, false, 0, 0);
@@ -24,12 +30,10 @@ app.objects.Mesh.prototype.draw = function(shader) {
     app.gl.bindBuffer(app.gl.ARRAY_BUFFER, this.normalsBuffer);
     app.gl.vertexAttribPointer(shader.vertexNormalAttribute, 3, app.gl.FLOAT, false, 0, 0);
 
-    if (this.color) {
-        shader.setVec3Property("color", this.color.x, this.color.y, this.color.z);
-    } 
-    else {
-        shader.setVec3Property("color", 0, 0, 0);
+    if (this.indices) {
+        app.gl.bindBuffer(app.gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
+        app.gl.drawElements(app.gl.TRIANGLES, this.numberOfVertices, app.gl.UNSIGNED_SHORT, 0);
+    } else {
+        app.gl.drawArrays(app.gl.TRIANGLES, 0, this.numberOfVertices);
     }
-
-    app.gl.drawArrays(app.gl.TRIANGLES, 0, this.numberOfVertices);
 };

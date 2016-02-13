@@ -43,8 +43,7 @@ app.initApp = function() {
     var camera_up = new app.math.Vector3(0, 1, 0);
     var screen_width = 1280;
     var screen_height = 720;
-    app.camera = new app.Camera(camera_position, camera_center, camera_up, 
-                                screen_width, screen_height);
+    app.camera = new app.Camera(camera_position, camera_center, camera_up, screen_width, screen_height);
 
     app.boxes = [];
     for (var i = 0; i < 100; i++) {
