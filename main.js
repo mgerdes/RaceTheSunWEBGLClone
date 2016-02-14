@@ -49,7 +49,12 @@ app.initApp = function() {
 
     app.obstacles = [];
     for (var i = 0; i < 100; i++) {
-        app.obstacles.push(new app.objects.Obstacle0(new app.math.Vector3(0, 0, 40 + i * 100)));
+        if (i % 2) {
+            app.obstacles.push(new app.objects.Obstacle0(new app.math.Vector3(0, 0, 40 + i * 200)));
+        } 
+        else {
+            app.obstacles.push(new app.objects.Obstacle1(new app.math.Vector3(0, 0, 40 + i * 200)));
+        }
     }
 
     app.isKeyPressed = {};
