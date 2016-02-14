@@ -29,6 +29,10 @@ app.initWebGL = function(canvas) {
         alert("Unable to initialize WebGL. Your browser may not support it.");
     }
 
+    canvas.width = window.screen.width;
+    canvas.height = window.screen.height;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+
     return gl;
 };
 
