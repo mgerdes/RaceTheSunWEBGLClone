@@ -45,15 +45,12 @@ app.initApp = function() {
     var screen_height = 720;
     app.camera = new app.Camera(camera_position, camera_center, camera_up, screen_width, screen_height);
 
-    app.boxes = [];
-    for (var i = 0; i < 100; i++) {
-        app.boxes.push(new app.objects.Box(new app.math.Vector3(5, 1, 20 + 40 * i), new app.math.Vector3(2, 2, 2)));
-    }
-    for (var i = 0; i < 100; i++) {
-        app.boxes.push(new app.objects.Box(new app.math.Vector3(-5, 1, 40 * i), new app.math.Vector3(2, 2, 2)));
-    }
-
     app.plane = new app.objects.Plane(new app.math.Vector3(0, -1, 0));
+
+    app.obstacles = [];
+    for (var i = 0; i < 100; i++) {
+        app.obstacles.push(new app.objects.Obstacle0(new app.math.Vector3(0, 0, 40 + i * 100)));
+    }
 
     app.isKeyPressed = {};
 
@@ -101,8 +98,8 @@ app.drawScene = function() {
 
     app.ship.draw(shader);
 
-    for (var i = 0; i < app.boxes.length; i++) {
-        app.boxes[i].draw(shader);
+    for (var i = 0; i < app.obstacles.length; i++) {
+        app.obstacles[i].draw(shader);
     }
 
     app.plane.draw(shader);
