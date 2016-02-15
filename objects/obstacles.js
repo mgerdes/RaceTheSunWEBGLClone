@@ -21,9 +21,30 @@ app.objects.Obstacle0 = function(position) {
 
     var PASSAGE_WIDTH = 5.0;
     var TURN_WIDTH = 10.0;
-    var WALL_1_AND_2_LENGTH = 30.0;
-    var WALL_6_AND_7_LENGTH = 30.0;
-    var WALL_8_AND_9_LENGTH = 20.0;
+    var WALL_1_AND_2_LENGTH = 50.0;
+    var WALL_6_AND_7_LENGTH = 50.0;
+    var WALL_8_AND_9_LENGTH = 40.0;
+
+    var box10Position = new app.math.Vector3(position.x, 
+                                             position.y + WALL_HEIGHT,
+                                             position.z + WALL_1_AND_2_LENGTH / 2);
+    var box10Scale = new app.math.Vector3(PASSAGE_WIDTH / 2,
+                                          WALL_DEPTH,
+                                          WALL_1_AND_2_LENGTH / 2);
+
+    var box11Position = new app.math.Vector3(position.x - PASSAGE_WIDTH, 
+                                             position.y + WALL_HEIGHT,
+                                             position.z + WALL_1_AND_2_LENGTH + WALL_6_AND_7_LENGTH / 2);
+    var box11Scale = new app.math.Vector3(PASSAGE_WIDTH / 2,
+                                          WALL_DEPTH,
+                                          WALL_6_AND_7_LENGTH / 2);
+
+    var box12Position = new app.math.Vector3(position.x + PASSAGE_WIDTH, 
+                                             position.y + WALL_HEIGHT,
+                                             position.z + WALL_1_AND_2_LENGTH + WALL_6_AND_7_LENGTH / 2);
+    var box12Scale = new app.math.Vector3(PASSAGE_WIDTH / 2,
+                                          WALL_DEPTH,
+                                          WALL_6_AND_7_LENGTH / 2);
 
     var box1Position = new app.math.Vector3(position.x - PASSAGE_WIDTH / 2,
                                             position.y,
@@ -98,6 +119,9 @@ app.objects.Obstacle0 = function(position) {
     this.obstacleObjects.push(new app.objects.Box(box7Position, box7Scale));
     this.obstacleObjects.push(new app.objects.Box(box8Position, box8Scale));
     this.obstacleObjects.push(new app.objects.Box(box9Position, box9Scale));
+    this.obstacleObjects.push(new app.objects.Box(box10Position, box10Scale));
+    this.obstacleObjects.push(new app.objects.Box(box11Position, box11Scale));
+    this.obstacleObjects.push(new app.objects.Box(box12Position, box12Scale));
 };
 
 app.objects.Obstacle0.prototype.draw = function(shader) {
