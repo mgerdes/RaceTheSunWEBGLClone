@@ -1,7 +1,7 @@
 var app = app || {};
 app.objects = app.objects || {};
 
-app.objects.Mesh = function(vertices, normals, indices) {
+app.objects.Mesh = function(vertices, normals, indices, color) {
     this.numberOfVertices = vertices.length / 3;
 
     this.verticesBuffer = app.gl.createBuffer(); 
@@ -18,11 +18,21 @@ app.objects.Mesh = function(vertices, normals, indices) {
         app.gl.bindBuffer(app.gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
         app.gl.bufferData(app.gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), app.gl.STATIC_DRAW);
     }
+
+    if (color) {
+        console.log("hi");
+        this.color = color;
+    }
 };
 
 app.objects.Mesh.prototype.draw = function(shader) {
     shader.enable();
-    shader.setVec3Property("color", 0, 0, 0);
+    if (this.color) {
+        console.log("hi");
+        shader.setVec3Property("color", this.color.x, this.color.y, this.color.z);
+    } else {
+        shader.setVec3Property("color", 0, 0, 0);
+    }
 
     app.gl.bindBuffer(app.gl.ARRAY_BUFFER, this.verticesBuffer);
     app.gl.vertexAttribPointer(shader.vertexPositionAttribute, 3, app.gl.FLOAT, false, 0, 0);

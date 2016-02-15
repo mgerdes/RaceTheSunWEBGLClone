@@ -63,6 +63,137 @@ app.math.Matrix4.rotation = function(axis, theta) {
                                 0, 0, 0, 1);
 };
 
+app.math.Matrix4.prototype.determinant = function() {
+	return this.m[12] * this.m[9] * this.m[6] * this.m[3] -
+		   this.m[8] * this.m[13] * this.m[6] * this.m[3] -
+		   this.m[12] * this.m[5] * this.m[10] * this.m[3] +
+		   this.m[4] * this.m[13] * this.m[10] * this.m[3] +
+		   this.m[8] * this.m[5] * this.m[14] * this.m[3] -
+		   this.m[4] * this.m[9] * this.m[14] * this.m[3] -
+		   this.m[12] * this.m[9] * this.m[2] * this.m[7] +
+		   this.m[8] * this.m[13] * this.m[2] * this.m[7] +
+		   this.m[12] * this.m[1] * this.m[10] * this.m[7] -
+		   this.m[0] * this.m[13] * this.m[10] * this.m[7] -
+		   this.m[8] * this.m[1] * this.m[14] * this.m[7] +
+		   this.m[0] * this.m[9] * this.m[14] * this.m[7] +
+		   this.m[12] * this.m[5] * this.m[2] * this.m[11] -
+		   this.m[4] * this.m[13] * this.m[2] * this.m[11] -
+		   this.m[12] * this.m[1] * this.m[6] * this.m[11] +
+		   this.m[0] * this.m[13] * this.m[6] * this.m[11] +
+		   this.m[4] * this.m[1] * this.m[14] * this.m[11] -
+		   this.m[0] * this.m[5] * this.m[14] * this.m[11] -
+		   this.m[8] * this.m[5] * this.m[2] * this.m[15] +
+		   this.m[4] * this.m[9] * this.m[2] * this.m[15] +
+		   this.m[8] * this.m[1] * this.m[6] * this.m[15] -
+		   this.m[0] * this.m[9] * this.m[6] * this.m[15] -
+		   this.m[4] * this.m[1] * this.m[10] * this.m[15] +
+		   this.m[0] * this.m[5] * this.m[10] * this.m[15];
+};
+
+app.math.Matrix4.prototype.inverse = function() {
+	var det = this.determinant();
+
+	if (det === 0) {
+        // Problem if this happens
+		return this;
+	}
+
+	var inv_det = 1 / det;
+	
+	return new app.math.Matrix4(
+		inv_det * (
+			this.m[9] * this.m[14] * this.m[7] - this.m[13] * this.m[10] * this.m[7] +
+			this.m[13] * this.m[6] * this.m[11] - this.m[5] * this.m[14] * this.m[11] -
+			this.m[9] * this.m[6] * this.m[15] + this.m[5] * this.m[10] * this.m[15]
+		),
+		inv_det * (
+			this.m[13] * this.m[10] * this.m[3] - this.m[9] * this.m[14] * this.m[3] -
+			this.m[13] * this.m[2] * this.m[11] + this.m[1] * this.m[14] * this.m[11] +
+			this.m[9] * this.m[2] * this.m[15] - this.m[1] * this.m[10] * this.m[15]
+		),
+		inv_det * (
+			this.m[5] * this.m[14] * this.m[3] - this.m[13] * this.m[6] * this.m[3] +
+			this.m[13] * this.m[2] * this.m[7] - this.m[1] * this.m[14] * this.m[7] -
+			this.m[5] * this.m[2] * this.m[15] + this.m[1] * this.m[6] * this.m[15]
+		),
+		inv_det * (
+			this.m[9] * this.m[6] * this.m[3] - this.m[5] * this.m[10] * this.m[3] -
+			this.m[9] * this.m[2] * this.m[7] + this.m[1] * this.m[10] * this.m[7] +
+			this.m[5] * this.m[2] * this.m[11] - this.m[1] * this.m[6] * this.m[11]
+		),
+		inv_det * (
+			this.m[12] * this.m[10] * this.m[7] - this.m[8] * this.m[14] * this.m[7] -
+			this.m[12] * this.m[6] * this.m[11] + this.m[4] * this.m[14] * this.m[11] +
+			this.m[8] * this.m[6] * this.m[15] - this.m[4] * this.m[10] * this.m[15]
+		),
+		inv_det * (
+			this.m[8] * this.m[14] * this.m[3] - this.m[12] * this.m[10] * this.m[3] +
+			this.m[12] * this.m[2] * this.m[11] - this.m[0] * this.m[14] * this.m[11] -
+			this.m[8] * this.m[2] * this.m[15] + this.m[0] * this.m[10] * this.m[15]
+		),
+		inv_det * (
+			this.m[12] * this.m[6] * this.m[3] - this.m[4] * this.m[14] * this.m[3] -
+			this.m[12] * this.m[2] * this.m[7] + this.m[0] * this.m[14] * this.m[7] +
+			this.m[4] * this.m[2] * this.m[15] - this.m[0] * this.m[6] * this.m[15]
+		),
+		inv_det * (
+			this.m[4] * this.m[10] * this.m[3] - this.m[8] * this.m[6] * this.m[3] +
+			this.m[8] * this.m[2] * this.m[7] - this.m[0] * this.m[10] * this.m[7] -
+			this.m[4] * this.m[2] * this.m[11] + this.m[0] * this.m[6] * this.m[11]
+		),
+		inv_det * (
+			this.m[8] * this.m[13] * this.m[7] - this.m[12] * this.m[9] * this.m[7] +
+			this.m[12] * this.m[5] * this.m[11] - this.m[4] * this.m[13] * this.m[11] -
+			this.m[8] * this.m[5] * this.m[15] + this.m[4] * this.m[9] * this.m[15]
+		),
+		inv_det * (
+			this.m[12] * this.m[9] * this.m[3] - this.m[8] * this.m[13] * this.m[3] -
+			this.m[12] * this.m[1] * this.m[11] + this.m[0] * this.m[13] * this.m[11] +
+			this.m[8] * this.m[1] * this.m[15] - this.m[0] * this.m[9] * this.m[15]
+		),
+		inv_det * (
+			this.m[4] * this.m[13] * this.m[3] - this.m[12] * this.m[5] * this.m[3] +
+			this.m[12] * this.m[1] * this.m[7] - this.m[0] * this.m[13] * this.m[7] -
+			this.m[4] * this.m[1] * this.m[15] + this.m[0] * this.m[5] * this.m[15]
+		),
+		inv_det * (
+			this.m[8] * this.m[5] * this.m[3] - this.m[4] * this.m[9] * this.m[3] -
+			this.m[8] * this.m[1] * this.m[7] + this.m[0] * this.m[9] * this.m[7] +
+			this.m[4] * this.m[1] * this.m[11] - this.m[0] * this.m[5] * this.m[11]
+		),
+		inv_det * (
+			this.m[12] * this.m[9] * this.m[6] - this.m[8] * this.m[13] * this.m[6] -
+			this.m[12] * this.m[5] * this.m[10] + this.m[4] * this.m[13] * this.m[10] +
+			this.m[8] * this.m[5] * this.m[14] - this.m[4] * this.m[9] * this.m[14]
+		),
+		inv_det * (
+			this.m[8] * this.m[13] * this.m[2] - this.m[12] * this.m[9] * this.m[2] +
+			this.m[12] * this.m[1] * this.m[10] - this.m[0] * this.m[13] * this.m[10] -
+			this.m[8] * this.m[1] * this.m[14] + this.m[0] * this.m[9] * this.m[14]
+		),
+		inv_det * (
+			this.m[12] * this.m[5] * this.m[2] - this.m[4] * this.m[13] * this.m[2] -
+			this.m[12] * this.m[1] * this.m[6] + this.m[0] * this.m[13] * this.m[6] +
+			this.m[4] * this.m[1] * this.m[14] - this.m[0] * this.m[5] * this.m[14]
+		),
+		inv_det * (
+			this.m[4] * this.m[9] * this.m[2] - this.m[8] * this.m[5] * this.m[2] +
+			this.m[8] * this.m[1] * this.m[6] - this.m[0] * this.m[9] * this.m[6] -
+			this.m[4] * this.m[1] * this.m[10] + this.m[0] * this.m[5] * this.m[10]
+		)
+	);
+};
+
+
+app.math.Matrix4.prototype.transpose = function() {
+    return new app.math.Matrix4(
+        this.m[0], this.m[4], this.m[8], this.m[12],
+        this.m[1], this.m[5], this.m[9], this.m[13],
+        this.m[2], this.m[6], this.m[10], this.m[14],
+        this.m[3], this.m[7], this.m[11], this.m[15]
+    );
+};
+
 app.math.Matrix4.prototype.times = function(other) {
     if (other instanceof app.math.Vector3) {
         var x = this.m[0] * other.x + this.m[4] * other.y + this.m[8] * other.z + this.m[12];

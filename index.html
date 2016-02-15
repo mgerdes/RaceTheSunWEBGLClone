@@ -23,14 +23,22 @@
             uniform mat4 projMat;
             uniform mat4 viewMat;
             uniform mat4 modelMat;
+            uniform mat4 normalMat;
             uniform vec3 color;
 
             varying lowp vec3 fragmentColor;
 
             void main(void) {
-                highp float scale1 = max(dot(vertexNormal, vec3(1.0, 2.0, 1.0)), 0.1);
-                highp float scale2 = max(dot(vertexNormal, vec3(-1.0, -1.0, -0.0)), 0.1);
-                fragmentColor = color + vec3(0.4, 0.4, 0.4) * scale1 + vec3(0.4, 0.4, 0.4) * scale2;
+                vec3 normal = normalize((normalMat * vec4(vertexNormal, 0.0)).xyz);
+
+                highp vec3 lightPosition1 = vec3(-1.2, 1.0, 0.0);
+                highp vec3 lightPosition2 = vec3(+1.2, 1.0, 0.0);
+                highp vec3 light = vec3(0.8, 0.8, 0.8);
+
+                highp float scale1 = max(dot(normal, lightPosition1), 0.0) / 2.0;
+                highp float scale2 = max(dot(normal, lightPosition2), 0.0) / 2.0;
+                fragmentColor = color + (scale1 * light + scale2 * light);
+                
                 gl_Position = projMat * viewMat * modelMat * vec4(vertexPosition, 1.0);
             }
         </script>
