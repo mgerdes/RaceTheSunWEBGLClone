@@ -1,3 +1,6 @@
+var app = app || {};
+app.objects = app.objects || {};
+
 app.objects.rectangleModelData = 
     {
         "vertices": [

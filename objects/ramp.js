@@ -7,10 +7,10 @@ app.objects.Ramp = function(position, rotation) {
     var rotationMat = app.math.Matrix4.rotation(new app.math.Vector3(1, 0, 0), rotation);
 
     this.modelMat = translationMat.times(rotationMat).times(scaleMat);
-    this.mesh = new app.objects.Mesh(app.objects.rectangleModelData["vertices"], 
-                                     app.objects.rectangleModelData["normals"],
-                                     app.objects.rectangleModelData["faces"],
-                                     new app.math.Vector3(-0.5, -0.5, -0.5));
+    this.mesh = new app.Mesh(app.objects.rectangleModelData["vertices"], 
+                             app.objects.rectangleModelData["normals"],
+                             app.objects.rectangleModelData["faces"],
+                             new app.math.Vector3(-0.5, -0.5, -0.5));
 };
 
 app.objects.Ramp.prototype.draw = function(shader) {

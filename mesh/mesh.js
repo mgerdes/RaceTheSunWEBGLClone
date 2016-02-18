@@ -1,7 +1,6 @@
 var app = app || {};
-app.objects = app.objects || {};
 
-app.objects.Mesh = function(vertices, normals, indices, color) {
+app.Mesh = function(vertices, normals, indices, color) {
     this.numberOfVertices = vertices.length / 3;
 
     this.verticesBuffer = app.gl.createBuffer(); 
@@ -24,7 +23,7 @@ app.objects.Mesh = function(vertices, normals, indices, color) {
     }
 };
 
-app.objects.Mesh.prototype.draw = function(shader, modelMat) {
+app.Mesh.prototype.draw = function(shader, modelMat) {
     shader.enable();
 
     if (this.color) {

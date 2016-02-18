@@ -1,5 +1,4 @@
 var app = app || {};
-app.globals = {};
 
 app.start = function() {
     var canvas = document.getElementById("glcanvas");
@@ -54,15 +53,15 @@ app.initApp = function() {
     app.obstacles = [];
     for (var i = 0; i < 5; i++) {
         if (i % 2) {
-            app.obstacles.push(new app.objects.Obstacle0(new app.math.Vector3(0, 0, 40 + i * 200)));
+            app.obstacles.push(new app.Obstacle0(new app.math.Vector3(0, 0, 40 + i * 200)));
         } 
         else {
-            app.obstacles.push(new app.objects.Obstacle1(new app.math.Vector3(0, 0, 40 + i * 200)));
+            app.obstacles.push(new app.Obstacle1(new app.math.Vector3(0, 0, 40 + i * 200)));
         }
-        app.obstacles.push(new app.objects.Obstacle2(new app.math.Vector3(20, 0, 40 + i * 200)));
-        app.obstacles.push(new app.objects.Obstacle2(new app.math.Vector3(20, 0, 80 + i * 200)));
-        app.obstacles.push(new app.objects.Obstacle2(new app.math.Vector3(20, 0, 120 + i * 200)));
-        app.obstacles.push(new app.objects.Obstacle2(new app.math.Vector3(20, 0, 160 + i * 200)));
+        app.obstacles.push(new app.Obstacle2(new app.math.Vector3(20, 0, 40 + i * 200)));
+        app.obstacles.push(new app.Obstacle2(new app.math.Vector3(20, 0, 80 + i * 200)));
+        app.obstacles.push(new app.Obstacle2(new app.math.Vector3(20, 0, 120 + i * 200)));
+        app.obstacles.push(new app.Obstacle2(new app.math.Vector3(20, 0, 160 + i * 200)));
     }
 
     app.isKeyPressed = {};

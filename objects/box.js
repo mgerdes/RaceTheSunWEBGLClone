@@ -6,9 +6,9 @@ app.objects.Box = function(position, scale) {
     var scaleMat = app.math.Matrix4.scale(scale.x, scale.y, scale.z);
 
     this.modelMat = translationMat.times(scaleMat);
-    this.mesh = new app.objects.Mesh(app.objects.rectangleModelData["vertices"], 
-                                     app.objects.rectangleModelData["normals"],
-                                     app.objects.rectangleModelData["faces"]);
+    this.mesh = new app.Mesh(app.objects.rectangleModelData["vertices"], 
+                             app.objects.rectangleModelData["normals"],
+                             app.objects.rectangleModelData["faces"]);
 };
 
 app.objects.Box.prototype.draw = function(shader) {

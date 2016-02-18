@@ -9,10 +9,10 @@ app.objects.Ship = function() {
     this.isMovingRight = false;
     this.updateModelMatrix();
 
-    this.mesh = new app.objects.Mesh(app.objects.shipModelData["vertices"], 
-                                     app.objects.shipModelData["normals"],
-                                     app.objects.shipModelData["faces"],
-                                     new app.math.Vector3(-0.5, -0.5, -0.5));
+    this.mesh = new app.Mesh(app.objects.shipModelData["vertices"], 
+                             app.objects.shipModelData["normals"],
+                             app.objects.shipModelData["faces"],
+                             new app.math.Vector3(-0.5, -0.5, -0.5));
 };
 
 app.objects.Ship.prototype.MAX_TURNING_VELOCITY = 60;

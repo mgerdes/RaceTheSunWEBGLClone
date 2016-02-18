@@ -5,9 +5,9 @@ app.objects.Plane = function(position) {
     this.position = position;
     this.updateModelMatrix();
 
-    this.mesh = new app.objects.Mesh(app.objects.planeModelData["vertices"], 
-                                     app.objects.planeModelData["normals"],
-                                     app.objects.planeModelData["faces"]);
+    this.mesh = new app.Mesh(app.objects.planeModelData["vertices"], 
+                             app.objects.planeModelData["normals"],
+                             app.objects.planeModelData["faces"]);
 };
 
 app.objects.Plane.prototype.updateModelMatrix = function() {
