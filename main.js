@@ -52,13 +52,17 @@ app.initApp = function() {
     app.plane = new app.objects.Plane(new app.math.Vector3(0, -1, 0));
 
     app.obstacles = [];
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 5; i++) {
         if (i % 2) {
             app.obstacles.push(new app.objects.Obstacle0(new app.math.Vector3(0, 0, 40 + i * 200)));
         } 
         else {
             app.obstacles.push(new app.objects.Obstacle1(new app.math.Vector3(0, 0, 40 + i * 200)));
         }
+        app.obstacles.push(new app.objects.Obstacle2(new app.math.Vector3(20, 0, 40 + i * 200)));
+        app.obstacles.push(new app.objects.Obstacle2(new app.math.Vector3(20, 0, 80 + i * 200)));
+        app.obstacles.push(new app.objects.Obstacle2(new app.math.Vector3(20, 0, 120 + i * 200)));
+        app.obstacles.push(new app.objects.Obstacle2(new app.math.Vector3(20, 0, 160 + i * 200)));
     }
 
     app.isKeyPressed = {};
