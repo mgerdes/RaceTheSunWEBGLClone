@@ -45,7 +45,5 @@ app.objects.Mesh.prototype.draw = function(shader, modelMat) {
     if (this.indices) {
         app.gl.bindBuffer(app.gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
         app.gl.drawElements(app.gl.TRIANGLES, this.numberOfVertices, app.gl.UNSIGNED_SHORT, 0);
-    } else {
-        app.gl.drawArrays(app.gl.TRIANGLES, 0, this.numberOfVertices);
     }
 };

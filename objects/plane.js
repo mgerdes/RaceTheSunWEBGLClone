@@ -4,7 +4,10 @@ app.objects = app.objects || {};
 app.objects.Plane = function(position) {
     this.position = position;
     this.updateModelMatrix();
-    this.mesh = new app.objects.Mesh(app.objects.Plane.vertices, app.objects.Plane.normals);
+
+    this.mesh = new app.objects.Mesh(app.objects.planeModelData["vertices"], 
+                                     app.objects.planeModelData["normals"],
+                                     app.objects.planeModelData["faces"]);
 };
 
 app.objects.Plane.prototype.updateModelMatrix = function() {
@@ -23,21 +26,3 @@ app.objects.Plane.prototype.update = function(timeDelta) {
     app.plane.position.z = app.ship.position.z;
     this.updateModelMatrix();
 };
-
-app.objects.Plane.vertices = [
-    1.0, 0.0, 1.0,
-    1.0, 0.0, -1.0,
-    -1.0, 0.0, -1.0,
-    -1.0, 0.0, -1.0,
-    -1.0, 0.0, 1.0,
-    1.0, 0.0, 1.0
-    ];
-
-app.objects.Plane.normals = [
-    0.0, 1.0, 0.0,
-    0.0, 1.0, 0.0,
-    0.0, 1.0, 0.0,
-    0.0, 1.0, 0.0,
-    0.0, 1.0, 0.0,
-    0.0, 1.0, 0.0,
-    ];
