@@ -15,9 +15,7 @@ app.objects.Plane.prototype.updateModelMatrix = function() {
 };
 
 app.objects.Plane.prototype.draw = function(shader) {
-    shader.setMat4Property("modelMat", this.modelMat);
-    shader.setMat4Property("normalMat", this.modelMat.inverse().transpose());
-    this.mesh.draw(shader);
+    this.mesh.draw(shader, this.modelMat);
 };
 
 app.objects.Plane.prototype.update = function(timeDelta) {

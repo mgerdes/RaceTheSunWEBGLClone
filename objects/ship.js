@@ -29,9 +29,7 @@ app.objects.Ship.prototype.updateModelMatrix = function() {
 };
 
 app.objects.Ship.prototype.draw = function(shader) {
-    shader.setMat4Property("modelMat", this.modelMat);
-    shader.setMat4Property("normalMat", this.modelMat.inverse().transpose());
-    this.mesh.draw(shader); 
+    this.mesh.draw(shader, this.modelMat); 
 };
 
 app.objects.Ship.prototype.update = function(timeDelta) {

@@ -20,19 +20,21 @@ app.objects.Mesh = function(vertices, normals, indices, color) {
     }
 
     if (color) {
-        console.log("hi");
         this.color = color;
     }
 };
 
-app.objects.Mesh.prototype.draw = function(shader) {
+app.objects.Mesh.prototype.draw = function(shader, modelMat) {
     shader.enable();
+
     if (this.color) {
-        console.log("hi");
         shader.setVec3Property("color", this.color.x, this.color.y, this.color.z);
     } else {
         shader.setVec3Property("color", 0, 0, 0);
     }
+
+    shader.setMat4Property("modelMat", modelMat);
+    shader.setMat4Property("normalMat", modelMat.inverse().transpose());
 
     app.gl.bindBuffer(app.gl.ARRAY_BUFFER, this.verticesBuffer);
     app.gl.vertexAttribPointer(shader.vertexPositionAttribute, 3, app.gl.FLOAT, false, 0, 0);
