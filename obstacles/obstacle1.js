@@ -113,6 +113,13 @@ app.Obstacle1 = function(position) {
     this.obstacleObjects.push(new app.objects.Box(box9Position, box9Scale));
 };
 
+app.Obstacle1.prototype.shiftZUnits = function(unitsToShift) {
+    for (var i = 0; i < this.obstacleObjects.length; i++) {
+        this.obstacleObjects[i].position.z += unitsToShift;
+        this.obstacleObjects[i].updateModelMat();
+    }
+};
+
 app.Obstacle1.prototype.draw = function(shader) {
     for (var i = 0; i < this.obstacleObjects.length; i++) {
         this.obstacleObjects[i].draw(shader);

@@ -41,6 +41,7 @@ app.initApp = function() {
     app.shaders["bounding_box_shader"] = new app.Shader("bounding-box-shader-fs", "bounding-box-shader-vs");
 
     app.ship = new app.objects.Ship();
+    app.ship.position.z -= 40;
 
     var camera_position = new app.math.Vector3(0, 0.2, 0);
     var camera_center = new app.math.Vector3(0, 0, 0);
@@ -51,19 +52,11 @@ app.initApp = function() {
 
     app.plane = new app.objects.Plane(new app.math.Vector3(0, -1, 0));
 
+    app.shipZPositionAtStartOfObstacle = app.ship.position.z;
+    app.currentObstacleIndex = 0;
     app.obstacles = [];
-    for (var i = 0; i < 5; i++) {
-        if (i % 2) {
-            app.obstacles.push(new app.Obstacle0(new app.math.Vector3(0, 0, 40 + i * 200)));
-        } 
-        else {
-            app.obstacles.push(new app.Obstacle1(new app.math.Vector3(0, 0, 40 + i * 200)));
-        }
-        app.obstacles.push(new app.Obstacle2(new app.math.Vector3(20, 0, 40 + i * 200)));
-        app.obstacles.push(new app.Obstacle2(new app.math.Vector3(20, 0, 80 + i * 200)));
-        app.obstacles.push(new app.Obstacle2(new app.math.Vector3(20, 0, 120 + i * 200)));
-        app.obstacles.push(new app.Obstacle2(new app.math.Vector3(20, 0, 160 + i * 200)));
-    }
+    app.obstacles.push(new app.Obstacle0(new app.math.Vector3(0, 0, 0)));
+    app.obstacles.push(new app.Obstacle1(new app.math.Vector3(0, 0, 200)));
 
     app.isKeyPressed = {};
 
@@ -91,6 +84,12 @@ app.gameLoop = function() {
 };
 
 app.updateScene = function(timeDelta) {
+    if (app.shipZPositionAtStartOfObstacle + 200 < app.ship.position.z) {
+        app.obstacles[app.currentObstacleIndex].shiftZUnits(2 * 200);
+        app.shipZPositionAtStartOfObstacle = app.ship.position.z;
+        app.currentObstacleIndex = (app.currentObstacleIndex + 1) % 2;
+    }
+
     app.camera.center.z = app.ship.position.z;
     app.camera.position.z = app.ship.position.z - 0.5;
 

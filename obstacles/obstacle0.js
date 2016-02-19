@@ -24,27 +24,6 @@ app.Obstacle0 = function(position) {
     var WALL_6_AND_7_LENGTH = 50.0;
     var WALL_8_AND_9_LENGTH = 40.0;
 
-    var box10Position = new app.math.Vector3(position.x, 
-                                             position.y + WALL_HEIGHT,
-                                             position.z + WALL_1_AND_2_LENGTH / 2);
-    var box10Scale = new app.math.Vector3(PASSAGE_WIDTH / 2,
-                                          WALL_DEPTH,
-                                          WALL_1_AND_2_LENGTH / 2);
-
-    var box11Position = new app.math.Vector3(position.x - PASSAGE_WIDTH, 
-                                             position.y + WALL_HEIGHT,
-                                             position.z + WALL_1_AND_2_LENGTH + WALL_6_AND_7_LENGTH / 2);
-    var box11Scale = new app.math.Vector3(PASSAGE_WIDTH / 2,
-                                          WALL_DEPTH,
-                                          WALL_6_AND_7_LENGTH / 2);
-
-    var box12Position = new app.math.Vector3(position.x + PASSAGE_WIDTH, 
-                                             position.y + WALL_HEIGHT,
-                                             position.z + WALL_1_AND_2_LENGTH + WALL_6_AND_7_LENGTH / 2);
-    var box12Scale = new app.math.Vector3(PASSAGE_WIDTH / 2,
-                                          WALL_DEPTH,
-                                          WALL_6_AND_7_LENGTH / 2);
-
     var box1Position = new app.math.Vector3(position.x - PASSAGE_WIDTH / 2,
                                             position.y,
                                             position.z + WALL_1_AND_2_LENGTH / 2);
@@ -108,6 +87,27 @@ app.Obstacle0 = function(position) {
                                          WALL_HEIGHT,
                                          WALL_8_AND_9_LENGTH / 2);
 
+    var box10Position = new app.math.Vector3(position.x, 
+                                             position.y + WALL_HEIGHT,
+                                             position.z + WALL_1_AND_2_LENGTH / 2);
+    var box10Scale = new app.math.Vector3(PASSAGE_WIDTH / 2,
+                                          WALL_DEPTH,
+                                          WALL_1_AND_2_LENGTH / 2);
+
+    var box11Position = new app.math.Vector3(position.x - PASSAGE_WIDTH, 
+                                             position.y + WALL_HEIGHT,
+                                             position.z + WALL_1_AND_2_LENGTH + WALL_6_AND_7_LENGTH / 2);
+    var box11Scale = new app.math.Vector3(PASSAGE_WIDTH / 2,
+                                          WALL_DEPTH,
+                                          WALL_6_AND_7_LENGTH / 2);
+
+    var box12Position = new app.math.Vector3(position.x + PASSAGE_WIDTH, 
+                                             position.y + WALL_HEIGHT,
+                                             position.z + WALL_1_AND_2_LENGTH + WALL_6_AND_7_LENGTH / 2);
+    var box12Scale = new app.math.Vector3(PASSAGE_WIDTH / 2,
+                                          WALL_DEPTH,
+                                          WALL_6_AND_7_LENGTH / 2);
+
     this.obstacleObjects = [];
     this.obstacleObjects.push(new app.objects.Box(box1Position, box1Scale));
     this.obstacleObjects.push(new app.objects.Box(box2Position, box2Scale));
@@ -121,6 +121,13 @@ app.Obstacle0 = function(position) {
     this.obstacleObjects.push(new app.objects.Box(box10Position, box10Scale));
     this.obstacleObjects.push(new app.objects.Box(box11Position, box11Scale));
     this.obstacleObjects.push(new app.objects.Box(box12Position, box12Scale));
+};
+
+app.Obstacle0.prototype.shiftZUnits = function(unitsToShift) {
+    for (var i = 0; i < this.obstacleObjects.length; i++) {
+        this.obstacleObjects[i].position.z += unitsToShift;
+        this.obstacleObjects[i].updateModelMat();
+    }
 };
 
 app.Obstacle0.prototype.draw = function(shader) {

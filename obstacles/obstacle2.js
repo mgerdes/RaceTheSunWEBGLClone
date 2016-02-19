@@ -6,6 +6,12 @@ app.Obstacle2 = function(position) {
     this.obstacleObjects.push(new app.objects.Ramp(rampPosition, 0.4));
 };
 
+app.Obstacle2.prototype.shiftZUnits = function(unitsToShift) {
+    for (var i = 0; i < this.obstacleObjects.length; i++) {
+        this.obstacleObjects[i].position.z += unitsToShift;
+    }
+};
+
 app.Obstacle2.prototype.draw = function(shader) {
     for (var i = 0; i < this.obstacleObjects.length; i++) {
         this.obstacleObjects[i].draw(shader);

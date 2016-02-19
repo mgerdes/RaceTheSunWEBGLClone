@@ -2,13 +2,18 @@ var app = app || {};
 app.objects = app.objects || {};
 
 app.objects.Box = function(position, scale) {
-    var translationMat = app.math.Matrix4.translation(position.x, position.y, position.z);
-    var scaleMat = app.math.Matrix4.scale(scale.x, scale.y, scale.z);
-
-    this.modelMat = translationMat.times(scaleMat);
+    this.position = position;
+    this.scale = scale;
+    this.updateModelMat();
     this.mesh = new app.Mesh(app.objects.rectangleModelData["vertices"], 
                              app.objects.rectangleModelData["normals"],
                              app.objects.rectangleModelData["faces"]);
+};
+
+app.objects.Box.prototype.updateModelMat = function() {
+    var translationMat = app.math.Matrix4.translation(this.position.x, this.position.y, this.position.z);
+    var scaleMat = app.math.Matrix4.scale(this.scale.x, this.scale.y, this.scale.z);
+    this.modelMat = translationMat.times(scaleMat);
 };
 
 app.objects.Box.prototype.draw = function(shader) {
