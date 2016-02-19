@@ -46,8 +46,8 @@ app.initApp = function() {
     var camera_position = new app.math.Vector3(0, 0.2, 0);
     var camera_center = new app.math.Vector3(0, 0, 0);
     var camera_up = new app.math.Vector3(0, 1, 0);
-    var screen_width = 1280;
-    var screen_height = 720;
+    var screen_width = window.screen.width;
+    var screen_height = window.screen.height;
     app.camera = new app.Camera(camera_position, camera_center, camera_up, screen_width, screen_height);
 
     app.plane = new app.objects.Plane(new app.math.Vector3(0, -1, 0));
