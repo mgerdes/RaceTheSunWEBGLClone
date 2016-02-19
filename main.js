@@ -38,6 +38,7 @@ app.initWebGL = function(canvas) {
 app.initApp = function() {
     app.shaders = {};
     app.shaders["default_shader"] = new app.Shader("shader-fs", "shader-vs");
+    app.shaders["bounding_box_shader"] = new app.Shader("bounding-box-shader-fs", "bounding-box-shader-vs");
 
     app.ship = new app.objects.Ship();
 
@@ -96,6 +97,11 @@ app.updateScene = function(timeDelta) {
     app.camera.center.x = app.ship.position.x;
     app.camera.position.x = app.ship.position.x;
 
+    for (shaderName in app.shaders) {
+        app.shaders[shaderName].setMat4Property("projMat", app.camera.projectionMatrix);
+        app.shaders[shaderName].setMat4Property("viewMat", app.camera.viewMatrix);
+    }
+
     app.plane.update(timeDelta);
     app.ship.update(timeDelta);
     app.camera.updateViewMatrix();
@@ -105,8 +111,6 @@ app.drawScene = function() {
     app.gl.clear(app.gl.COLOR_BUFFER_BIT | app.gl.DEPTH_BUFFER_BIT);
 
     var shader = app.shaders["default_shader"];
-    shader.setMat4Property("projMat", app.camera.projectionMatrix);
-    shader.setMat4Property("viewMat", app.camera.viewMatrix);
 
     app.ship.draw(shader);
 

@@ -9,6 +9,8 @@ app.objects.Ship = function() {
     this.isMovingRight = false;
     this.updateModelMatrix();
 
+    this.boundingBox1 = new app.BoundingBox(this.position, new app.math.Vector3(0.1, 0.1, 0.30));
+
     this.mesh = new app.Mesh(app.objects.shipModelData["vertices"], 
                              app.objects.shipModelData["normals"],
                              app.objects.shipModelData["faces"],
@@ -29,6 +31,8 @@ app.objects.Ship.prototype.updateModelMatrix = function() {
 };
 
 app.objects.Ship.prototype.draw = function(shader) {
+    this.boundingBox1.draw();
+
     this.mesh.draw(shader, this.modelMat); 
 };
 
@@ -36,6 +40,8 @@ app.objects.Ship.prototype.update = function(timeDelta) {
     this.velocity = this.velocity.add(this.acceleration.times(timeDelta));
     this.position = this.position.add(this.velocity.times(timeDelta));
     this.updateModelMatrix();
+
+    this.boundingBox1.position = this.position;
 
     if (this.isMovingLeft) {
         if (this.velocity.x > this.MAX_TURNING_VELOCITY) {

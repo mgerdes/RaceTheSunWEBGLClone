@@ -11,12 +11,10 @@ app.Mesh = function(vertices, normals, indices, color) {
     app.gl.bindBuffer(app.gl.ARRAY_BUFFER, this.normalsBuffer);
     app.gl.bufferData(app.gl.ARRAY_BUFFER, new Float32Array(normals), app.gl.STATIC_DRAW);
 
-    if (indices) {
-        this.indices = indices;
-        this.indicesBuffer = app.gl.createBuffer();
-        app.gl.bindBuffer(app.gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
-        app.gl.bufferData(app.gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), app.gl.STATIC_DRAW);
-    }
+    this.indices = indices;
+    this.indicesBuffer = app.gl.createBuffer();
+    app.gl.bindBuffer(app.gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
+    app.gl.bufferData(app.gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), app.gl.STATIC_DRAW);
 
     if (color) {
         this.color = color;
@@ -41,8 +39,6 @@ app.Mesh.prototype.draw = function(shader, modelMat) {
     app.gl.bindBuffer(app.gl.ARRAY_BUFFER, this.normalsBuffer);
     app.gl.vertexAttribPointer(shader.vertexNormalAttribute, 3, app.gl.FLOAT, false, 0, 0);
 
-    if (this.indices) {
-        app.gl.bindBuffer(app.gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
-        app.gl.drawElements(app.gl.TRIANGLES, this.numberOfVertices, app.gl.UNSIGNED_SHORT, 0);
-    }
+    app.gl.bindBuffer(app.gl.ELEMENT_ARRAY_BUFFER, this.indicesBuffer);
+    app.gl.drawElements(app.gl.TRIANGLES, this.numberOfVertices, app.gl.UNSIGNED_SHORT, 0);
 };

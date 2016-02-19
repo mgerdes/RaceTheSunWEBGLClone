@@ -43,6 +43,24 @@
             }
         </script>
 
+        <script id="bounding-box-shader-fs" type="x-shader/x-fragment">
+            void main(void) {
+                gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+            }
+        </script>
+
+        <script id="bounding-box-shader-vs" type="x-shader/x-vertex">
+            attribute vec3 vertexPosition;
+
+            uniform mat4 projMat;
+            uniform mat4 viewMat;
+            uniform mat4 modelMat;
+
+            void main(void) {
+                gl_Position = projMat * viewMat * modelMat * vec4(vertexPosition, 1.0);
+            }
+        </script>
+
         <script type="text/javascript" src="math/matrix4.js"></script>
         <script type="text/javascript" src="math/vector3.js"></script>
         <script type="text/javascript" src="math/constants.js"></script>
@@ -50,6 +68,7 @@
         <script type="text/javascript" src="camera/camera.js"></script>
 
         <script type="text/javascript" src="mesh/mesh.js"></script>
+        <script type="text/javascript" src="mesh/lineLoopMesh.js"></script>
 
         <script type="text/javascript" src="boundingBox/boundingBox.js"></script>
 
