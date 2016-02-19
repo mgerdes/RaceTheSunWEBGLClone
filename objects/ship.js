@@ -18,7 +18,7 @@ app.objects.Ship = function() {
 };
 
 app.objects.Ship.prototype.MAX_TURNING_VELOCITY = 60;
-app.objects.Ship.prototype.TURNING_ACCELERATION = 60;
+app.objects.Ship.prototype.TURNING_ACCELERATION = 50;
 app.objects.Ship.prototype.MAX_FORWARD_VELOCITY = 40;
 
 app.objects.Ship.prototype.updateModelMatrix = function() {

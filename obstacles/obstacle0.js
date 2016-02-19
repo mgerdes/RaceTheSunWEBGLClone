@@ -108,30 +108,30 @@ app.Obstacle0 = function(position) {
                                           WALL_DEPTH,
                                           WALL_6_AND_7_LENGTH / 2);
 
-    this.obstacleObjects = [];
-    this.obstacleObjects.push(new app.objects.Box(box1Position, box1Scale));
-    this.obstacleObjects.push(new app.objects.Box(box2Position, box2Scale));
-    this.obstacleObjects.push(new app.objects.Box(box3Position, box3Scale));
-    this.obstacleObjects.push(new app.objects.Box(box4Position, box4Scale));
-    this.obstacleObjects.push(new app.objects.Box(box5Position, box5Scale));
-    this.obstacleObjects.push(new app.objects.Box(box6Position, box6Scale));
-    this.obstacleObjects.push(new app.objects.Box(box7Position, box7Scale));
-    this.obstacleObjects.push(new app.objects.Box(box8Position, box8Scale));
-    this.obstacleObjects.push(new app.objects.Box(box9Position, box9Scale));
-    this.obstacleObjects.push(new app.objects.Box(box10Position, box10Scale));
-    this.obstacleObjects.push(new app.objects.Box(box11Position, box11Scale));
-    this.obstacleObjects.push(new app.objects.Box(box12Position, box12Scale));
+    this.objects = [];
+    this.objects.push(new app.objects.Box(box1Position, box1Scale));
+    this.objects.push(new app.objects.Box(box2Position, box2Scale));
+    this.objects.push(new app.objects.Box(box3Position, box3Scale));
+    this.objects.push(new app.objects.Box(box4Position, box4Scale));
+    this.objects.push(new app.objects.Box(box5Position, box5Scale));
+    this.objects.push(new app.objects.Box(box6Position, box6Scale));
+    this.objects.push(new app.objects.Box(box7Position, box7Scale));
+    this.objects.push(new app.objects.Box(box8Position, box8Scale));
+    this.objects.push(new app.objects.Box(box9Position, box9Scale));
+    this.objects.push(new app.objects.Box(box10Position, box10Scale));
+    this.objects.push(new app.objects.Box(box11Position, box11Scale));
+    this.objects.push(new app.objects.Box(box12Position, box12Scale));
 };
 
 app.Obstacle0.prototype.shiftZUnits = function(unitsToShift) {
-    for (var i = 0; i < this.obstacleObjects.length; i++) {
-        this.obstacleObjects[i].position.z += unitsToShift;
-        this.obstacleObjects[i].updateModelMat();
+    for (var i = 0; i < this.objects.length; i++) {
+        this.objects[i].position.z += unitsToShift;
+        this.objects[i].updateModelMat();
     }
 };
 
 app.Obstacle0.prototype.draw = function(shader) {
-    for (var i = 0; i < this.obstacleObjects.length; i++) {
-        this.obstacleObjects[i].draw(shader);
+    for (var i = 0; i < this.objects.length; i++) {
+        this.objects[i].draw(shader);
     }
 };

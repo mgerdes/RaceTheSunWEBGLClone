@@ -55,8 +55,8 @@ app.initApp = function() {
     app.shipZPositionAtStartOfObstacle = app.ship.position.z;
     app.currentObstacleIndex = 0;
     app.obstacles = [];
-    app.obstacles.push(new app.Obstacle0(new app.math.Vector3(0, 0, 0)));
-    app.obstacles.push(new app.Obstacle1(new app.math.Vector3(0, 0, 200)));
+    app.obstacles.push(new app.Obstacle1(new app.math.Vector3(0, 0, 0)));
+    app.obstacles.push(new app.Obstacle0(new app.math.Vector3(0, 0, 200)));
 
     app.isKeyPressed = {};
 
@@ -90,6 +90,8 @@ app.updateScene = function(timeDelta) {
         app.currentObstacleIndex = (app.currentObstacleIndex + 1) % 2;
     }
 
+    app.handleCollisions();
+
     app.camera.center.z = app.ship.position.z;
     app.camera.position.z = app.ship.position.z - 0.5;
 
@@ -104,6 +106,15 @@ app.updateScene = function(timeDelta) {
     app.plane.update(timeDelta);
     app.ship.update(timeDelta);
     app.camera.updateViewMatrix();
+};
+
+app.handleCollisions = function() {
+    var currentObstacle = app.obstacles[app.currentObstacleIndex];
+    for (var i = 0; i < currentObstacle.objects.length; i++) {
+        if (app.ship.boundingBox1.collidesWith(currentObstacle.objects[i].boundingBox)) {
+            location.reload(); 
+        }
+    }
 };
 
 app.drawScene = function() {

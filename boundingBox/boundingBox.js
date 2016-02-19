@@ -7,35 +7,28 @@ app.BoundingBox = function(position, scale) {
     this.mesh = new app.LineLoopMesh(app.objects.rectangleModelData["vertices"]);
 };
 
-app.BoundingBox.prototype.doesCollideWith = function(boundingBox) {
-    var thisMinX = this.position.x - (this.scale.x / 2);
-    var thisMaxX = boundingBox.position.x + (boundingBox.scale.x / 2);
-    var otherMinX = boundingBox.position.x - (boundingBox.scale.x / 2);
-    var otherMaxX = boundingBox.position.x + (boundingBox.scale.x / 2);
+app.BoundingBox.prototype.collidesWith = function(boundingBox) {
+    var thisMinX = this.position.x - this.scale.x;
+    var thisMaxX = this.position.x + this.scale.x;
+    var otherMinX = boundingBox.position.x - boundingBox.scale.x;
+    var otherMaxX = boundingBox.position.x + boundingBox.scale.x;
 
-    var xCollide = ((thisMinX >= otherMinX) && (thisMinX <= otherMaxX)) ||
-        ((otherMinX >= thisMinX) && (otherMinX <= thisMaxX));
-    if (!xCollide) return false;
+    var thisMinY = this.position.y - this.scale.y;
+    var thisMaxY = this.position.y + this.scale.y;
+    var otherMinY = boundingBox.position.y - boundingBox.scale.y;
+    var otherMaxY = boundingBox.position.y + boundingBox.scale.y;
 
-    var thisMinY = this.position.y - (this.scale.y / 2);
-    var thisMaxY = boundingBox.position.y + (boundingBox.scale.y / 2);
-    var otherMinY = boundingBox.position.y - (boundingBox.scale.y / 2);
-    var otherMaxY = boundingBox.position.y + (boundingBox.scale.y / 2);
+    var thisMinZ = this.position.z - this.scale.z;
+    var thisMaxZ = this.position.z + this.scale.z;
+    var otherMinZ = boundingBox.position.z - boundingBox.scale.z;
+    var otherMaxZ = boundingBox.position.z + boundingBox.scale.z;
 
-    var yCollide = ((thisMinY >= otherMinY) && (thisMinY <= otherMaxY)) ||
-        ((otherMinY >= thisMinY) && (otherMinY <= thisMaxY));
-    if (!yCollide) return false;
-
-    var thisMinZ = this.position.z - (this.scale.z / 2);
-    var thisMaxZ = boundingBox.position.z + (boundingBox.scale.z / 2);
-    var otherMinZ = boundingBox.position.z - (boundingBox.scale.z / 2);
-    var otherMaxZ = boundingBox.position.z + (boundingBox.scale.z / 2);
-
-    var zCollide = ((thisMinZ >= otherMinZ) && (thisMinZ <= otherMaxZ)) ||
-        ((otherMinZ >= thisMinZ) && (otherMinZ <= thisMaxZ));
-    if (!zCollide) return false;
-
-    return true; 
+    return thisMaxX >= otherMinX &&
+           thisMinX <= otherMaxX &&
+           thisMaxY >= otherMinY &&
+           thisMinY <= otherMaxY &&
+           thisMaxZ >= otherMinZ &&
+           thisMinZ <= otherMaxZ;
 };
 
 app.BoundingBox.prototype.draw = function() {
