@@ -6,22 +6,22 @@ app.math.Matrix4 = function(a, b, c, d,
                             i, j, k, l,
                             m, n, o, p) {
     this.m = [];
-    this.m[0] = a || 1;
-    this.m[1] = e || 0;
-    this.m[2] = i || 0;
-    this.m[3] = m || 0;
-    this.m[4] = b || 0;
-    this.m[5] = f || 1;
-    this.m[6] = j || 0;
-    this.m[7] = n || 0;
-    this.m[8] = c || 0;
-    this.m[9] = g || 0;
-    this.m[10] = k || 1;
-    this.m[11] = o || 0;
-    this.m[12] = d || 0;
-    this.m[13] = h || 0;
-    this.m[14] = l || 0;
-    this.m[15] = p || 1;
+    this.m[0] = a;
+    this.m[1] = e;
+    this.m[2] = i;
+    this.m[3] = m;
+    this.m[4] = b;
+    this.m[5] = f;
+    this.m[6] = j;
+    this.m[7] = n;
+    this.m[8] = c;
+    this.m[9] = g;
+    this.m[10] = k;
+    this.m[11] = o;
+    this.m[12] = d;
+    this.m[13] = h;
+    this.m[14] = l;
+    this.m[15] = p;
 };
 
 app.math.Matrix4.identity = function() {

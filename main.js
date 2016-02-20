@@ -43,9 +43,10 @@ app.initApp = function() {
     app.ship = new app.objects.Ship();
     app.ship.position.z -= 40;
 
-    var camera_position = new app.math.Vector3(0, 0.2, 0);
-    var camera_center = new app.math.Vector3(0, 0, 0);
+    var camera_position = new app.math.Vector3(0, 0.5, 0);
+    var camera_center = new app.math.Vector3(0, 0.2, 0);
     var camera_up = new app.math.Vector3(0, 1, 0);
+    app.deltaZ = 1.5;
     var screen_width = window.screen.width;
     var screen_height = window.screen.height;
     app.camera = new app.Camera(camera_position, camera_center, camera_up, screen_width, screen_height);
@@ -93,7 +94,7 @@ app.updateScene = function(timeDelta) {
     app.handleCollisions();
 
     app.camera.center.z = app.ship.position.z;
-    app.camera.position.z = app.ship.position.z - 0.5;
+    app.camera.position.z = app.ship.position.z - app.deltaZ;
 
     app.camera.center.x = app.ship.position.x;
     app.camera.position.x = app.ship.position.x;
