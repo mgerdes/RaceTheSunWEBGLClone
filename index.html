@@ -61,6 +61,29 @@
             }
         </script>
 
+        <script id="shadow-shader-fs" type="x-shader/x-fragment">
+            void main(void) {
+                gl_FragColor = vec4(0.3, 0.3, 0.3, 1.0);
+            }
+        </script>
+
+        <script id="shadow-shader-vs" type="x-shader/x-vertex">
+            attribute vec3 vertexPosition;
+
+            uniform mat4 projMat;
+            uniform mat4 viewMat;
+            uniform mat4 modelMat;
+
+            uniform vec3 lightPosition;
+
+            void main(void) {
+                lowp vec4 worldPosition = modelMat * vec4(vertexPosition, 1.0);
+                lowp float projectedAxis = 
+                        lightPosition.z - (lightPosition.z - worldPosition.z) * (lightPosition.y + 1.0) / (lightPosition.y - worldPosition.y);
+                gl_Position = projMat * viewMat * vec4(worldPosition.x, -0.99, projectedAxis, 1.0);
+            }
+        </script>
+
         <script type="text/javascript" src="math/matrix4.js"></script>
         <script type="text/javascript" src="math/vector3.js"></script>
         <script type="text/javascript" src="math/constants.js"></script>

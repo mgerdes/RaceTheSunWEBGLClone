@@ -2,7 +2,7 @@ var app = app || {};
 app.objects = app.objects || {};
 
 app.objects.Ship = function() {
-    this.position = new app.math.Vector3(0, 0, 0);
+    this.position = new app.math.Vector3(0, 0.0, 0);
     this.velocity = new app.math.Vector3(0, 0, this.MAX_FORWARD_VELOCITY);
     this.acceleration = new app.math.Vector3(0, 0, 0);
     this.isMovingLeft = false;
@@ -14,7 +14,7 @@ app.objects.Ship = function() {
     this.mesh = new app.Mesh(app.objects.shipModelData["vertices"], 
                              app.objects.shipModelData["normals"],
                              app.objects.shipModelData["faces"],
-                             new app.math.Vector3(-0.5, -0.5, -0.5));
+                             new app.math.Vector3(-0.2, -0.2, -0.2));
 };
 
 app.objects.Ship.prototype.MAX_TURNING_VELOCITY = 60;
@@ -31,8 +31,6 @@ app.objects.Ship.prototype.updateModelMatrix = function() {
 };
 
 app.objects.Ship.prototype.draw = function(shader) {
-    this.boundingBox1.draw();
-
     this.mesh.draw(shader, this.modelMat); 
 };
 

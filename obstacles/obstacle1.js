@@ -39,63 +39,63 @@ app.Obstacle1 = function(position) {
     var SPACE_BETWEEN_INNER_WALLS = 20;
 
     var box1Position = new app.math.Vector3(position.x + INNER_WALL_LENGTH,
-                                           position.y,
+                                           position.y - (1 - WALL_HEIGHT),
                                            position.z + SIDE_WALL_LENGTH / 2);
     var box1Scale = new app.math.Vector3(WALL_DEPTH,
                                         WALL_HEIGHT,
                                         SIDE_WALL_LENGTH / 2);
 
     var box2Position = new app.math.Vector3(position.x - INNER_WALL_LENGTH,
-                                           position.y,
+                                           position.y - (1 - WALL_HEIGHT),
                                            position.z + SIDE_WALL_LENGTH / 2);
     var box2Scale = new app.math.Vector3(WALL_DEPTH,
                                         WALL_HEIGHT,
                                         SIDE_WALL_LENGTH / 2);
 
     var box3Position = new app.math.Vector3(position.x - INNER_WALL_LENGTH / 2,
-                                           position.y,
+                                           position.y - (1 - WALL_HEIGHT),
                                            position.z + 0 * SPACE_BETWEEN_INNER_WALLS);;
     var box3Scale = new app.math.Vector3(INNER_WALL_LENGTH / 2,
                                         WALL_HEIGHT,
                                         WALL_DEPTH);
 
     var box4Position = new app.math.Vector3(position.x + INNER_WALL_LENGTH / 2,
-                                           position.y,
+                                           position.y - (1 - WALL_HEIGHT),
                                            position.z + 1 * SPACE_BETWEEN_INNER_WALLS);;
     var box4Scale = new app.math.Vector3(INNER_WALL_LENGTH / 2,
                                         WALL_HEIGHT,
                                         WALL_DEPTH);
 
     var box5Position = new app.math.Vector3(position.x - INNER_WALL_LENGTH / 2,
-                                           position.y,
+                                           position.y - (1 - WALL_HEIGHT),
                                            position.z + 2 * SPACE_BETWEEN_INNER_WALLS);;
     var box5Scale = new app.math.Vector3(INNER_WALL_LENGTH / 2,
                                         WALL_HEIGHT,
                                         WALL_DEPTH);
 
     var box6Position = new app.math.Vector3(position.x + INNER_WALL_LENGTH / 2,
-                                           position.y,
+                                           position.y - (1 - WALL_HEIGHT),
                                            position.z + 3 * SPACE_BETWEEN_INNER_WALLS);;
     var box6Scale = new app.math.Vector3(INNER_WALL_LENGTH / 2,
                                         WALL_HEIGHT,
                                         WALL_DEPTH);
 
     var box7Position = new app.math.Vector3(position.x - INNER_WALL_LENGTH / 2,
-                                           position.y,
+                                           position.y - (1 - WALL_HEIGHT),
                                            position.z + 4 * SPACE_BETWEEN_INNER_WALLS);;
     var box7Scale = new app.math.Vector3(INNER_WALL_LENGTH / 2,
                                         WALL_HEIGHT,
                                         WALL_DEPTH);
 
     var box8Position = new app.math.Vector3(position.x + INNER_WALL_LENGTH / 2,
-                                           position.y,
+                                           position.y - (1 - WALL_HEIGHT),
                                            position.z + 5 * SPACE_BETWEEN_INNER_WALLS);;
     var box8Scale = new app.math.Vector3(INNER_WALL_LENGTH / 2,
                                         WALL_HEIGHT,
                                         WALL_DEPTH);
 
     var box9Position = new app.math.Vector3(position.x - INNER_WALL_LENGTH / 2,
-                                           position.y,
+                                           position.y - (1 - WALL_HEIGHT),
                                            position.z + 6 * SPACE_BETWEEN_INNER_WALLS);;
     var box9Scale = new app.math.Vector3(INNER_WALL_LENGTH / 2,
                                         WALL_HEIGHT,

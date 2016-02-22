@@ -18,6 +18,5 @@ app.objects.Box.prototype.updateModelMat = function() {
 };
 
 app.objects.Box.prototype.draw = function(shader) {
-    this.boundingBox.draw();
     this.mesh.draw(shader, this.modelMat);
 };

@@ -39,6 +39,7 @@ app.initApp = function() {
     app.shaders = {};
     app.shaders["default_shader"] = new app.Shader("shader-fs", "shader-vs");
     app.shaders["bounding_box_shader"] = new app.Shader("bounding-box-shader-fs", "bounding-box-shader-vs");
+    app.shaders["shadow_shader"] = new app.Shader("shadow-shader-fs", "shadow-shader-vs");
 
     app.ship = new app.objects.Ship();
     app.ship.position.z -= 40;
@@ -81,7 +82,9 @@ app.initApp = function() {
 
 app.gameLoop = function() {
     app.updateScene(0.015);
+    app.gl.clear(app.gl.COLOR_BUFFER_BIT | app.gl.DEPTH_BUFFER_BIT);
     app.drawScene();
+    app.drawShadows();
 };
 
 app.updateScene = function(timeDelta) {
@@ -91,7 +94,7 @@ app.updateScene = function(timeDelta) {
         app.currentObstacleIndex = (app.currentObstacleIndex + 1) % 2;
     }
 
-    app.handleCollisions();
+    //app.handleCollisions();
 
     app.camera.center.z = app.ship.position.z;
     app.camera.position.z = app.ship.position.z - app.deltaZ;
@@ -118,16 +121,20 @@ app.handleCollisions = function() {
     }
 };
 
-app.drawScene = function() {
-    app.gl.clear(app.gl.COLOR_BUFFER_BIT | app.gl.DEPTH_BUFFER_BIT);
-
-    var shader = app.shaders["default_shader"];
-
+app.drawShadows = function() {
+    var shader = app.shaders["shadow_shader"];
+    shader.setVec3Property("lightPosition", 0, 20, app.ship.position.z + 100);
     app.ship.draw(shader);
-
     for (var i = 0; i < app.obstacles.length; i++) {
         app.obstacles[i].draw(shader);
     }
+};
 
+app.drawScene = function() {
+    var shader = app.shaders["default_shader"];
+    app.ship.draw(shader);
+    for (var i = 0; i < app.obstacles.length; i++) {
+        app.obstacles[i].draw(shader);
+    }
     app.plane.draw(shader);
 };
