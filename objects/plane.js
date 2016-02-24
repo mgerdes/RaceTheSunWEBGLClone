@@ -11,7 +11,7 @@ app.objects.Plane = function(position) {
 
 app.objects.Plane.prototype.updateModelMatrix = function() {
     var translationMat = app.math.Matrix4.translation(this.position.x, this.position.y, this.position.z);
-    var scaleMat = app.math.Matrix4.scale(500, 1, 500);
+    var scaleMat = app.math.Matrix4.scale(100, 1, 500);
     this.modelMat = translationMat.times(scaleMat);
 };
 

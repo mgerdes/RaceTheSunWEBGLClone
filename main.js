@@ -40,6 +40,7 @@ app.initApp = function() {
     app.shaders["default_shader"] = new app.Shader("shader-fs", "shader-vs");
     app.shaders["bounding_box_shader"] = new app.Shader("bounding-box-shader-fs", "bounding-box-shader-vs");
     app.shaders["shadow_shader"] = new app.Shader("shadow-shader-fs", "shadow-shader-vs");
+    app.shaders["plane_shader"] = new app.Shader("plane-shader-fs", "plane-shader-vs");
 
     app.ship = new app.objects.Ship();
     app.ship.position.z -= 40;
@@ -63,9 +64,6 @@ app.initApp = function() {
     app.obstacles.push(new app.Obstacle0(new app.math.Vector3(0, 0, 600)));
     app.obstacles.push(new app.Obstacle1(new app.math.Vector3(0, 0, 800)));
     app.obstacles.push(new app.Obstacle3(new app.math.Vector3(0, 0, 1000)));
-    app.obstacles.push(new app.Obstacle0(new app.math.Vector3(0, 0, 1200)));
-    app.obstacles.push(new app.Obstacle1(new app.math.Vector3(0, 0, 1400)));
-    app.obstacles.push(new app.Obstacle3(new app.math.Vector3(0, 0, 1600)));
 
     app.isKeyPressed = {};
 
@@ -96,9 +94,9 @@ app.gameLoop = function() {
 
 app.updateScene = function(timeDelta) {
     if (app.shipZPositionAtStartOfObstacle + 200 < app.ship.position.z) {
-        app.obstacles[app.currentObstacleIndex].shiftZUnits(9 * 200);
+        app.obstacles[app.currentObstacleIndex].shiftZUnits(6 * 200);
         app.shipZPositionAtStartOfObstacle = app.ship.position.z;
-        app.currentObstacleIndex = (app.currentObstacleIndex + 1) % 9;
+        app.currentObstacleIndex = (app.currentObstacleIndex + 1) % 6;
     }
 
     //app.handleCollisions();
@@ -143,5 +141,5 @@ app.drawScene = function() {
     for (var i = 0; i < app.obstacles.length; i++) {
         app.obstacles[i].draw(shader);
     }
-    app.plane.draw(shader);
+    app.plane.draw(app.shaders["plane_shader"]);
 };
