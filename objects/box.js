@@ -1,14 +1,23 @@
 var app = app || {};
 app.objects = app.objects || {};
 
-app.objects.Box = function(position, scale) {
+app.objects.Box = function(position, scale, color) {
     this.position = position;
     this.scale = scale;
     this.updateModelMat();
     this.boundingBox = new app.BoundingBox(position, scale);
+
+    if (color) {
+        this.color = color;
+    } 
+    else {
+        this.color = new app.math.Vector3(0, 0, 0);
+    }
+
     this.mesh = new app.Mesh(app.objects.rectangleModelData["vertices"], 
                              app.objects.rectangleModelData["normals"],
-                             app.objects.rectangleModelData["faces"]);
+                             app.objects.rectangleModelData["faces"],
+                             this.color);
 };
 
 app.objects.Box.prototype.updateModelMat = function() {

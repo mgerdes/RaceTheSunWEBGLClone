@@ -57,8 +57,15 @@ app.initApp = function() {
     app.shipZPositionAtStartOfObstacle = app.ship.position.z;
     app.currentObstacleIndex = 0;
     app.obstacles = [];
-    app.obstacles.push(new app.Obstacle1(new app.math.Vector3(0, 0, 0)));
-    app.obstacles.push(new app.Obstacle0(new app.math.Vector3(0, 0, 200)));
+    app.obstacles.push(new app.Obstacle0(new app.math.Vector3(0, 0, 000)));
+    app.obstacles.push(new app.Obstacle1(new app.math.Vector3(0, 0, 200)));
+    app.obstacles.push(new app.Obstacle3(new app.math.Vector3(0, 0, 400)));
+    app.obstacles.push(new app.Obstacle0(new app.math.Vector3(0, 0, 600)));
+    app.obstacles.push(new app.Obstacle1(new app.math.Vector3(0, 0, 800)));
+    app.obstacles.push(new app.Obstacle3(new app.math.Vector3(0, 0, 1000)));
+    app.obstacles.push(new app.Obstacle0(new app.math.Vector3(0, 0, 1200)));
+    app.obstacles.push(new app.Obstacle1(new app.math.Vector3(0, 0, 1400)));
+    app.obstacles.push(new app.Obstacle3(new app.math.Vector3(0, 0, 1600)));
 
     app.isKeyPressed = {};
 
@@ -89,9 +96,9 @@ app.gameLoop = function() {
 
 app.updateScene = function(timeDelta) {
     if (app.shipZPositionAtStartOfObstacle + 200 < app.ship.position.z) {
-        app.obstacles[app.currentObstacleIndex].shiftZUnits(2 * 200);
+        app.obstacles[app.currentObstacleIndex].shiftZUnits(9 * 200);
         app.shipZPositionAtStartOfObstacle = app.ship.position.z;
-        app.currentObstacleIndex = (app.currentObstacleIndex + 1) % 2;
+        app.currentObstacleIndex = (app.currentObstacleIndex + 1) % 9;
     }
 
     //app.handleCollisions();
@@ -123,7 +130,7 @@ app.handleCollisions = function() {
 
 app.drawShadows = function() {
     var shader = app.shaders["shadow_shader"];
-    shader.setVec3Property("lightPosition", 0, 20, app.ship.position.z + 100);
+    shader.setVec3Property("lightPosition", 0, 1000, app.ship.position.z + 2000);
     app.ship.draw(shader);
     for (var i = 0; i < app.obstacles.length; i++) {
         app.obstacles[i].draw(shader);
