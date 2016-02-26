@@ -55,6 +55,8 @@ app.initApp = function() {
 
     app.plane = new app.objects.Plane(new app.math.Vector3(0, -1, 0));
 
+    app.obstaclesMap = new app.ObstacleMap();
+
     app.shipZPositionAtStartOfObstacle = app.ship.position.z;
     app.currentObstacleIndex = 0;
     app.obstacles = [];
@@ -97,6 +99,8 @@ app.updateScene = function(timeDelta) {
         app.obstacles[app.currentObstacleIndex].shiftZUnits(6 * 200);
         app.shipZPositionAtStartOfObstacle = app.ship.position.z;
         app.currentObstacleIndex = (app.currentObstacleIndex + 1) % 6;
+
+        app.obstaclesMap.shiftDown();
     }
 
     //app.handleCollisions();
@@ -130,16 +134,12 @@ app.drawShadows = function() {
     var shader = app.shaders["shadow_shader"];
     shader.setVec3Property("lightPosition", 0, 1000, app.ship.position.z + 2000);
     app.ship.draw(shader);
-    for (var i = 0; i < app.obstacles.length; i++) {
-        app.obstacles[i].draw(shader);
-    }
+    app.obstaclesMap.drawObstacles(shader);
 };
 
 app.drawScene = function() {
     var shader = app.shaders["default_shader"];
     app.ship.draw(shader);
-    for (var i = 0; i < app.obstacles.length; i++) {
-        app.obstacles[i].draw(shader);
-    }
+    app.obstaclesMap.drawObstacles(shader);
     app.plane.draw(app.shaders["plane_shader"]);
 };
