@@ -46,9 +46,9 @@ app.initApp = function() {
     app.ship.position.z -= 40;
 
     var camera_position = new app.math.Vector3(0, 0.5, 0);
-    var camera_center = new app.math.Vector3(0, 0.2, 0);
+    var camera_center = new app.math.Vector3(0, 0.5, 0);
     var camera_up = new app.math.Vector3(0, 1, 0);
-    app.deltaZ = 1.5;
+    app.deltaZ = 1.3;
     var screen_width = window.screen.width;
     var screen_height = window.screen.height;
     app.camera = new app.Camera(camera_position, camera_center, camera_up, screen_width, screen_height);
@@ -70,6 +70,45 @@ app.initApp = function() {
     app.isKeyPressed = {};
 
     document.onkeydown = function (event) {
+        if (event.keyCode == 81) {
+            app.deltaZ += 0.1;
+            console.log("deltaZ = " + app.deltaZ + 
+                        ", camPos.y = " + app.camera.position.y +
+                        ", camCenter.y = " + app.camera.center.y);
+        }
+        if (event.keyCode == 65) {
+            app.deltaZ -= 0.1;
+            console.log("deltaZ = " + app.deltaZ + 
+                        ", camPos.y = " + app.camera.position.y +
+                        ", camCenter.y = " + app.camera.center.y);
+        }
+
+        if (event.keyCode == 87) {
+            app.camera.position.y += 0.1;
+            console.log("deltaZ = " + app.deltaZ + 
+                        ", camPos.y = " + app.camera.position.y +
+                        ", camCenter.y = " + app.camera.center.y);
+        }
+        if (event.keyCode == 83) {
+            app.camera.position.y -= 0.1;
+            console.log("deltaZ = " + app.deltaZ + 
+                        ", camPos.y = " + app.camera.position.y +
+                        ", camCenter.y = " + app.camera.center.y);
+        }
+
+        if (event.keyCode == 69) {
+            app.camera.center.y += 0.1;
+            console.log("deltaZ = " + app.deltaZ + 
+                        ", camPos.y = " + app.camera.position.y +
+                        ", camCenter.y = " + app.camera.center.y);
+        }
+        if (event.keyCode == 68) {
+            app.camera.center.y -= 0.1;
+            console.log("deltaZ = " + app.deltaZ + 
+                        ", camPos.y = " + app.camera.position.y +
+                        ", camCenter.y = " + app.camera.center.y);
+        }
+
         if (event.keyCode == 37) {
             app.ship.isMovingLeft = true;
         } 

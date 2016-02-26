@@ -35,7 +35,7 @@ app.Obstacle1 = function(position) {
     var WALL_DEPTH = 0.04;
 
     var SIDE_WALL_LENGTH = 120;
-    var INNER_WALL_LENGTH = 5;
+    var INNER_WALL_LENGTH = 8;
     var SPACE_BETWEEN_INNER_WALLS = 20;
 
     var box1Position = new app.math.Vector3(position.x + INNER_WALL_LENGTH,
