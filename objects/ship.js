@@ -2,7 +2,7 @@ var app = app || {};
 app.objects = app.objects || {};
 
 app.objects.Ship = function() {
-    this.position = new app.math.Vector3(0, 0.0, 0);
+    this.position = new app.math.Vector3(0, -0.4, 0);
     this.velocity = new app.math.Vector3(0, 0, this.MAX_FORWARD_VELOCITY);
     this.acceleration = new app.math.Vector3(0, 0, 0);
     this.isMovingLeft = false;
