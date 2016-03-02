@@ -71,7 +71,7 @@
             varying highp vec2 textureCoord;
 
             void main(void) {
-                textureCoord = vec2((vertexPosition.x + 1.0) * 32.0 + shipsPosition.x / 128.0, (vertexPosition.z + 1.0) * 32.0 + shipsPosition.z / 16.0); 
+                textureCoord = vec2((vertexPosition.x + 1.0) * 32.0 + shipsPosition.x, (vertexPosition.z + 1.0) * 32.0 + shipsPosition.z / 16.0); 
                 gl_Position = projMat * viewMat * modelMat * vec4(vertexPosition, 1.0);
             }
         </script>
