@@ -19,7 +19,6 @@ app.objects.Ramp = function(position, rotation) {
 
 app.objects.Ramp.prototype.draw = function(shader) {
     this.mesh.draw(shader, this.modelMat);
-    this.boundingBox.draw(app.shaders["bounding_box_shader"]);
 };
 
 app.objects.Ramp.prototype.updateModelMat = function() {

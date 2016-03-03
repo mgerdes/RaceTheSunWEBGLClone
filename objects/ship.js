@@ -33,7 +33,6 @@ app.objects.Ship.prototype.updateModelMatrix = function() {
 
 app.objects.Ship.prototype.draw = function(shader) {
     this.mesh.draw(shader, this.modelMat); 
-    this.boundingBox1.draw(app.shaders["bounding_box_shader"]);
 };
 
 app.objects.Ship.prototype.update = function(timeDelta) {
