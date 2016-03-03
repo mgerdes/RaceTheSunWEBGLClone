@@ -15,8 +15,12 @@ app.ObstacleMap = function() {
     this.nextRow = 4;
 };
 
+app.ObstacleMap.prototype.currentObstacle = function() {
+    return this.map[0][3];
+};
+
 app.ObstacleMap.prototype.randomObstacle = function(position) {
-    var rand = Math.floor(Math.random() * 3);
+    var rand = Math.floor(Math.random() * 1);
     if (rand == 0) {
         return new app.Obstacle0(position);
     } else if (rand == 1) {

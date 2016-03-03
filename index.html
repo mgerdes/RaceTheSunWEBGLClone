@@ -27,6 +27,7 @@
             uniform vec3 color;
 
             varying lowp vec3 fragmentColor;
+            varying lowp float dist;
 
             void main(void) {
                 vec3 normal = normalize((normalMat * vec4(vertexNormal, 0.0)).xyz);
@@ -40,7 +41,7 @@
                 fragmentColor = color + (scale1 * light + scale2 * light);
 
                 highp vec3 eyePosition = (viewMat * modelMat * vec4(vertexPosition, 1.0)).xyz;
-                highp float dist = length(eyePosition);
+                dist = length(eyePosition);
                 dist /= 500.0;
                 fragmentColor += vec3(dist, dist, dist);
 

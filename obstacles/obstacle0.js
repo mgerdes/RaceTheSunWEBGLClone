@@ -121,6 +121,9 @@ app.Obstacle0 = function(position) {
     this.objects.push(new app.objects.Box(box10Position, box10Scale));
     this.objects.push(new app.objects.Box(box11Position, box11Scale));
     this.objects.push(new app.objects.Box(box12Position, box12Scale));
+
+    var rampPosition = new app.math.Vector3(position.x, position.y, position.z - 20);
+    this.objects.push(new app.objects.Ramp(rampPosition, 0.4));
 };
 
 app.Obstacle0.prototype.shiftZUnits = function(unitsToShift) {

@@ -1,8 +1,14 @@
 var app = app || {};
 
-app.BoundingBox = function(position, scale) {
+app.BoundingBox = function(position, scale, rotation) {
     this.position = position;
     this.scale = scale;
+
+    if (!rotation) {
+        this.rotation = 0;
+    } else {
+        this.rotation = rotation;
+    }
 
     this.mesh = new app.LineLoopMesh(app.objects.rectangleModelData["vertices"]);
 };

@@ -8,8 +8,12 @@ app.start = function() {
     if (app.gl) {
         app.gl.clearColor(1, 1, 1, 1);
         app.gl.clearDepth(1);
+
         app.gl.enable(app.gl.DEPTH_TEST);
         app.gl.depthFunc(app.gl.LESS);
+
+        app.gl.enable(app.gl.BLEND);
+        app.gl.blendFunc(app.gl.SRC_ALPHA, app.gl.ONE_MINUS_SRC_ALPHA);
 
         setInterval(app.gameLoop, 15);
     }
@@ -142,10 +146,13 @@ app.updateScene = function(timeDelta) {
         app.obstaclesMap.shiftDown();
     }
 
-    //app.handleCollisions();
+    app.handleCollisions();
 
     app.camera.center.z = app.ship.position.z;
     app.camera.position.z = app.ship.position.z - app.deltaZ;
+
+    app.camera.center.y = app.ship.position.y + 0.4;
+    app.camera.position.y = app.ship.position.y + 0.4;
 
     app.camera.center.x = app.ship.position.x;
     app.camera.position.x = app.ship.position.x;
@@ -161,10 +168,14 @@ app.updateScene = function(timeDelta) {
 };
 
 app.handleCollisions = function() {
-    var currentObstacle = app.obstacles[app.currentObstacleIndex];
+    var currentObstacle = app.obstaclesMap.currentObstacle();
+    app.ship.isMovingUp = false;
     for (var i = 0; i < currentObstacle.objects.length; i++) {
         if (app.ship.boundingBox1.collidesWith(currentObstacle.objects[i].boundingBox)) {
-            location.reload(); 
+            if (currentObstacle.objects[i].boundingBox.rotation != 0) {
+                console.log("HI");
+                app.ship.isMovingUp = true;
+            }
         }
     }
 };

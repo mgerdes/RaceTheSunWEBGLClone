@@ -7,6 +7,7 @@ app.objects.Ship = function() {
     this.acceleration = new app.math.Vector3(0, 0, 0);
     this.isMovingLeft = false;
     this.isMovingRight = false;
+    this.isMovingUp = false;
     this.updateModelMatrix();
 
     this.boundingBox1 = new app.BoundingBox(this.position, new app.math.Vector3(0.1, 0.1, 0.30));
@@ -32,6 +33,7 @@ app.objects.Ship.prototype.updateModelMatrix = function() {
 
 app.objects.Ship.prototype.draw = function(shader) {
     this.mesh.draw(shader, this.modelMat); 
+    this.boundingBox1.draw(app.shaders["bounding_box_shader"]);
 };
 
 app.objects.Ship.prototype.update = function(timeDelta) {
@@ -40,6 +42,18 @@ app.objects.Ship.prototype.update = function(timeDelta) {
     this.updateModelMatrix();
 
     this.boundingBox1.position = this.position;
+
+    if (this.isMovingUp) {
+        this.acceleration.y = 120;
+    } else {
+        if (this.position.y > -0.4) {
+            this.acceleration.y = -8;
+        } else {
+            this.position.y = -0.4;
+            this.acceleration.y = 0;
+            this.velocity.y = 0;
+        }
+    }
 
     if (this.isMovingLeft) {
         if (this.velocity.x > this.MAX_TURNING_VELOCITY) {
