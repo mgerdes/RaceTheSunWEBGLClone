@@ -53,10 +53,15 @@
             uniform sampler2D sampler;
 
             varying highp vec2 textureCoord;
+            varying highp vec3 fragPosition;
 
             void main(void) {
                 gl_FragColor = texture2D(sampler, textureCoord) * vec4(0.1, 0.1, 0.1, 1.0);
                 gl_FragColor += vec4(0.7, 0.7, 0.7, 1.0);
+                lowp float dist = length(fragPosition);
+                dist /= 1000.0;
+                gl_FragColor += vec4(dist, dist, dist, 1.0);
+
             }
         </script>
 
@@ -70,10 +75,12 @@
             uniform vec3 shipsPosition;
 
             varying highp vec2 textureCoord;
+            varying highp vec3 fragPosition;
 
             void main(void) {
                 textureCoord = vec2((vertexPosition.x + 1.0) * 32.0 + shipsPosition.x, (vertexPosition.z + 1.0) * 32.0 + shipsPosition.z / 16.0); 
-                gl_Position = projMat * viewMat * modelMat * vec4(vertexPosition, 1.0);
+                fragPosition = (viewMat * modelMat * vec4(vertexPosition, 1.0)).xyz;
+                gl_Position = projMat * vec4(fragPosition, 1.0);
             }
         </script>
 
