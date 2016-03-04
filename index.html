@@ -9,10 +9,22 @@
         </canvas>
 
         <script id="shader-fs" type="x-shader/x-fragment">
-            varying lowp vec3 fragmentColor;
+            varying highp vec3 fragColor;
+            varying highp vec3 fragPosition;
+            varying highp vec3 fragNormal;
+            varying highp vec3 lightColor;
+            varying highp vec3 lightPosition1;
+            varying highp vec3 lightPosition2;
 
             void main(void) {
-                gl_FragColor = vec4(fragmentColor, 1.0);
+                highp float scale1 = max(dot(fragNormal, lightPosition1), 0.0) / 2.0;
+                highp float scale2 = max(dot(fragNormal, lightPosition2), 0.0) / 2.0;
+                gl_FragColor = vec4(fragColor + (scale1 * lightColor + scale2 * lightColor), 1.0);
+
+                highp float dist = length(fragPosition);
+                dist /= 500.0;
+
+                gl_FragColor += vec4(dist, dist, dist, 1.0);
             }
         </script>
 
@@ -26,26 +38,21 @@
             uniform mat4 normalMat;
             uniform vec3 color;
 
-            varying lowp vec3 fragmentColor;
-            varying lowp float dist;
+            varying highp vec3 fragColor;
+            varying highp vec3 fragPosition;
+            varying highp vec3 fragNormal;
+            varying highp vec3 lightColor;
+            varying highp vec3 lightPosition1;
+            varying highp vec3 lightPosition2;
 
             void main(void) {
-                vec3 normal = normalize((normalMat * vec4(vertexNormal, 0.0)).xyz);
-
-                highp vec3 lightPosition1 = vec3(-1.2, 1.0, 0.0);
-                highp vec3 lightPosition2 = vec3(+1.2, 1.0, 0.0);
-                highp vec3 light = vec3(0.8, 0.8, 0.8);
-
-                highp float scale1 = max(dot(normal, lightPosition1), 0.0) / 2.0;
-                highp float scale2 = max(dot(normal, lightPosition2), 0.0) / 2.0;
-                fragmentColor = color + (scale1 * light + scale2 * light);
-
-                highp vec3 eyePosition = (viewMat * modelMat * vec4(vertexPosition, 1.0)).xyz;
-                dist = length(eyePosition);
-                dist /= 500.0;
-                fragmentColor += vec3(dist, dist, dist);
-
-                gl_Position = projMat * vec4(eyePosition, 1.0);
+                fragColor = color;
+                fragPosition = (viewMat * modelMat * vec4(vertexPosition, 1.0)).xyz; 
+                fragNormal = normalize((normalMat * vec4(vertexNormal, 0.0)).xyz);
+                lightColor = vec3(0.8, 0.8, 0.8);
+                lightPosition1 = vec3(-1.2, 1.0, 0.0);
+                lightPosition2 = vec3(+1.2, 1.0, 0.0);
+                gl_Position = projMat * vec4(fragPosition, 1.0);
             }
         </script>
 
@@ -58,6 +65,7 @@
             void main(void) {
                 gl_FragColor = texture2D(sampler, textureCoord) * vec4(0.1, 0.1, 0.1, 1.0);
                 gl_FragColor += vec4(0.7, 0.7, 0.7, 1.0);
+
                 lowp float dist = length(fragPosition);
                 dist /= 1000.0;
                 gl_FragColor += vec4(dist, dist, dist, 1.0);
