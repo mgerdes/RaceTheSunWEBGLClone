@@ -17,14 +17,19 @@
             varying highp vec3 lightPosition2;
 
             void main(void) {
+                highp vec3 fogColor = vec3(1.0, 1.0, 1.0);
+            
                 highp float scale1 = max(dot(fragNormal, lightPosition1), 0.0) / 2.0;
                 highp float scale2 = max(dot(fragNormal, lightPosition2), 0.0) / 2.0;
-                gl_FragColor = vec4(fragColor + (scale1 * lightColor + scale2 * lightColor), 1.0);
+                highp vec3 outputColor = fragColor + (scale1 * lightColor + scale2 * lightColor);
 
                 highp float dist = length(fragPosition);
-                dist /= 500.0;
+                highp float fogFactor = dist / 300.0; 
+                fogFactor = clamp(fogFactor, 0.0, 1.0);
 
-                gl_FragColor += vec4(dist, dist, dist, 1.0);
+                outputColor = mix(outputColor, fogColor, fogFactor);
+
+                gl_FragColor = vec4(outputColor, 1.0);
             }
         </script>
 
@@ -63,12 +68,18 @@
             varying highp vec3 fragPosition;
 
             void main(void) {
-                gl_FragColor = texture2D(sampler, textureCoord) * vec4(0.1, 0.1, 0.1, 1.0);
-                gl_FragColor += vec4(0.7, 0.7, 0.7, 1.0);
+                highp vec3 fogColor = vec3(1.0, 1.0, 1.0);
 
-                lowp float dist = length(fragPosition);
-                dist /= 1000.0;
-                gl_FragColor += vec4(dist, dist, dist, 1.0);
+                highp vec3 outputColor = (texture2D(sampler, textureCoord) * vec4(0.1, 0.1, 0.1, 1.0)).xyz;
+                outputColor += vec3(0.7, 0.7, 0.7);
+
+                highp float dist = length(fragPosition);
+                highp float fogFactor = dist / 300.0;
+                fogFactor = clamp(fogFactor, 0.0, 1.0);
+
+                outputColor = mix(outputColor, fogColor, fogFactor);
+
+                gl_FragColor = vec4(outputColor, 1.0);
 
             }
         </script>
@@ -111,8 +122,20 @@
         </script>
 
         <script id="shadow-shader-fs" type="x-shader/x-fragment">
+            varying highp vec3 fragPosition;
+
             void main(void) {
-                gl_FragColor = vec4(0.3, 0.3, 0.3, 1.0);
+                highp vec3 fogColor = vec3(1.0, 1.0, 1.0);
+
+                highp vec3 outputColor = vec3(0.3, 0.3, 0.3);
+
+                highp float dist = length(fragPosition);
+                highp float fogFactor = dist / 300.0;
+                fogFactor = clamp(fogFactor, 0.0, 1.0);
+
+                outputColor = mix(outputColor, fogColor, fogFactor);
+
+                gl_FragColor = vec4(outputColor, 1.0);
             }
         </script>
 
@@ -125,7 +148,11 @@
 
             uniform vec3 lightPosition;
 
+            varying highp vec3 fragPosition;
+
             void main(void) {
+                fragPosition = (viewMat * modelMat * vec4(vertexPosition, 1.0)).xyz;
+
                 lowp vec4 worldPosition = modelMat * vec4(vertexPosition, 1.0);
                 lowp float projectedAxis = 
                         lightPosition.z - (lightPosition.z - worldPosition.z) * (lightPosition.y + 1.0) / (lightPosition.y - worldPosition.y);
