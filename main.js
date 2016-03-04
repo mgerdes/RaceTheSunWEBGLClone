@@ -12,9 +12,6 @@ app.start = function() {
         app.gl.enable(app.gl.DEPTH_TEST);
         app.gl.depthFunc(app.gl.LESS);
 
-        app.gl.enable(app.gl.BLEND);
-        app.gl.blendFunc(app.gl.SRC_ALPHA, app.gl.ONE_MINUS_SRC_ALPHA);
-
         setInterval(app.gameLoop, 15);
     }
 };

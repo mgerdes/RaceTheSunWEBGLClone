@@ -20,7 +20,7 @@ app.ObstacleMap.prototype.currentObstacle = function() {
 };
 
 app.ObstacleMap.prototype.randomObstacle = function(position) {
-    var rand = Math.floor(Math.random() * 1);
+    var rand = Math.floor(Math.random() * 3);
     if (rand == 0) {
         return new app.Obstacle0(position);
     } else if (rand == 1) {

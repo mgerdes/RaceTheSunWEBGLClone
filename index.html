@@ -135,7 +135,7 @@
 
                 outputColor = mix(outputColor, fogColor, fogFactor);
 
-                gl_FragColor = vec4(outputColor, 1.0);
+                gl_FragColor = vec4(outputColor, 0.1);
             }
         </script>
 
@@ -153,8 +153,8 @@
             void main(void) {
                 fragPosition = (viewMat * modelMat * vec4(vertexPosition, 1.0)).xyz;
 
-                lowp vec4 worldPosition = modelMat * vec4(vertexPosition, 1.0);
-                lowp float projectedAxis = 
+                highp vec4 worldPosition = modelMat * vec4(vertexPosition, 1.0);
+                highp float projectedAxis = 
                         lightPosition.z - (lightPosition.z - worldPosition.z) * (lightPosition.y + 1.0) / (lightPosition.y - worldPosition.y);
                 gl_Position = projMat * viewMat * vec4(worldPosition.x, -0.99, projectedAxis, 1.0);
             }
