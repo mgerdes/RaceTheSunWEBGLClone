@@ -9,49 +9,81 @@ app.Obstacle3 = function(position) {
      * |-------|  |-------| |-------| |-------| |-------|
      */
 
-    var box1Position = new app.math.Vector3(position.x,
-                                            position.y + 9,
-                                            position.z + 50);
-    var box1Scale = new app.math.Vector3(15.0,
-                                         10.0,
-                                         20.0);
+    var depthSideBoxScale = new app.math.Vector3(0.01, 10.0, 20.0);
+    var widthSideBoxScale = new app.math.Vector3(15.0, 10.0, 0.01);
 
-    var box2Position = new app.math.Vector3(position.x + 32,
-                                            position.y + 9,
-                                            position.z + 50);
-    var box2Scale = new app.math.Vector3(15.0,
-                                         10.0,
-                                         20.0);
+    var box1Side1Position = new app.math.Vector3(position.x + 15,
+                                                 position.y + 9,
+                                                 position.z + 50);
+    var box1Side2Position = new app.math.Vector3(position.x,
+                                                 position.y + 9,
+                                                 position.z + 30);
+    var box1Side3Position = new app.math.Vector3(position.x - 15,
+                                                 position.y + 9,
+                                                 position.z + 50);
 
-    var box3Position = new app.math.Vector3(position.x - 32,
-                                            position.y + 9,
-                                            position.z + 50);
-    var box3Scale = new app.math.Vector3(15.0,
-                                         10.0,
-                                         20.0);
+    var box2Side1Position = new app.math.Vector3(position.x + 47,
+                                                 position.y + 9,
+                                                 position.z + 50);
+    var box2Side2Position = new app.math.Vector3(position.x + 32,
+                                                 position.y + 9,
+                                                 position.z + 30);
+    var box2Side3Position = new app.math.Vector3(position.x + 17,
+                                                 position.y + 9,
+                                                 position.z + 50);
 
-    var box4Position = new app.math.Vector3(position.x - 64,
-                                            position.y + 9,
-                                            position.z + 50);
-    var box4Scale = new app.math.Vector3(15.0,
-                                         10.0,
-                                         20.0);
+    var box3Side1Position = new app.math.Vector3(position.x + 79,
+                                                 position.y + 9,
+                                                 position.z + 50);
+    var box3Side2Position = new app.math.Vector3(position.x + 64,
+                                                 position.y + 9,
+                                                 position.z + 30);
+    var box3Side3Position = new app.math.Vector3(position.x + 49,
+                                                 position.y + 9,
+                                                 position.z + 50);
 
-    var box5Position = new app.math.Vector3(position.x + 64,
-                                            position.y + 9,
-                                            position.z + 50);
-    var box5Scale = new app.math.Vector3(15.0,
-                                         10.0,
-                                         20.0);
+    var box4Side1Position = new app.math.Vector3(position.x - 47,
+                                                 position.y + 9,
+                                                 position.z + 50);
+    var box4Side2Position = new app.math.Vector3(position.x - 32,
+                                                 position.y + 9,
+                                                 position.z + 30);
+    var box4Side3Position = new app.math.Vector3(position.x - 17,
+                                                 position.y + 9,
+                                                 position.z + 50);
+
+    var box5Side1Position = new app.math.Vector3(position.x - 79,
+                                                 position.y + 9,
+                                                 position.z + 50);
+    var box5Side2Position = new app.math.Vector3(position.x - 64,
+                                                 position.y + 9,
+                                                 position.z + 30);
+    var box5Side3Position = new app.math.Vector3(position.x - 49,
+                                                 position.y + 9,
+                                                 position.z + 50);
 
     var color = new app.math.Vector3(0.1, 0, 0);
 
     this.objects = [];
-    this.objects.push(new app.objects.Box(box1Position, box1Scale, color));
-    this.objects.push(new app.objects.Box(box2Position, box2Scale, color));
-    this.objects.push(new app.objects.Box(box3Position, box3Scale, color));
-    this.objects.push(new app.objects.Box(box4Position, box4Scale, color));
-    this.objects.push(new app.objects.Box(box5Position, box5Scale, color));
+    this.objects.push(new app.objects.Box(box1Side1Position, depthSideBoxScale, color));
+    this.objects.push(new app.objects.Box(box1Side2Position, widthSideBoxScale, color));
+    this.objects.push(new app.objects.Box(box1Side3Position, depthSideBoxScale, color));
+
+    this.objects.push(new app.objects.Box(box2Side1Position, depthSideBoxScale, color));
+    this.objects.push(new app.objects.Box(box2Side2Position, widthSideBoxScale, color));
+    this.objects.push(new app.objects.Box(box2Side3Position, depthSideBoxScale, color));
+
+    this.objects.push(new app.objects.Box(box3Side1Position, depthSideBoxScale, color));
+    this.objects.push(new app.objects.Box(box3Side2Position, widthSideBoxScale, color));
+    this.objects.push(new app.objects.Box(box3Side3Position, depthSideBoxScale, color));
+
+    this.objects.push(new app.objects.Box(box4Side1Position, depthSideBoxScale, color));
+    this.objects.push(new app.objects.Box(box4Side2Position, widthSideBoxScale, color));
+    this.objects.push(new app.objects.Box(box4Side3Position, depthSideBoxScale, color));
+
+    this.objects.push(new app.objects.Box(box5Side1Position, depthSideBoxScale, color));
+    this.objects.push(new app.objects.Box(box5Side2Position, widthSideBoxScale, color));
+    this.objects.push(new app.objects.Box(box5Side3Position, depthSideBoxScale, color));
 };
 
 app.Obstacle3.prototype.shiftZUnits = function(unitsToShift) {
