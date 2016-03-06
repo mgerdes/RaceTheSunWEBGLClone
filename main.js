@@ -55,18 +55,8 @@ app.initApp = function() {
     app.camera = new app.Camera(camera_position, camera_center, camera_up, screen_width, screen_height);
 
     app.plane = new app.objects.Plane(new app.math.Vector3(0, -1, 0));
-
     app.obstaclesMap = new app.ObstacleMap();
-
     app.shipZPositionAtStartOfObstacle = app.ship.position.z;
-    app.currentObstacleIndex = 0;
-    app.obstacles = [];
-    app.obstacles.push(new app.Obstacle0(new app.math.Vector3(0, 0, 000)));
-    app.obstacles.push(new app.Obstacle1(new app.math.Vector3(0, 0, 200)));
-    app.obstacles.push(new app.Obstacle3(new app.math.Vector3(0, 0, 400)));
-    app.obstacles.push(new app.Obstacle0(new app.math.Vector3(0, 0, 600)));
-    app.obstacles.push(new app.Obstacle1(new app.math.Vector3(0, 0, 800)));
-    app.obstacles.push(new app.Obstacle3(new app.math.Vector3(0, 0, 1000)));
 
     app.isKeyPressed = {};
 
@@ -136,10 +126,7 @@ app.gameLoop = function() {
 
 app.updateScene = function(timeDelta) {
     if (app.shipZPositionAtStartOfObstacle + 200 < app.ship.position.z) {
-        app.obstacles[app.currentObstacleIndex].shiftZUnits(6 * 200);
         app.shipZPositionAtStartOfObstacle = app.ship.position.z;
-        app.currentObstacleIndex = (app.currentObstacleIndex + 1) % 6;
-
         app.obstaclesMap.shiftDown();
     }
 
@@ -161,6 +148,7 @@ app.updateScene = function(timeDelta) {
 
     app.plane.update(timeDelta);
     app.ship.update(timeDelta);
+    app.obstaclesMap.updateObstacles(timeDelta);
     app.camera.updateViewMatrix();
 };
 
@@ -170,7 +158,6 @@ app.handleCollisions = function() {
     for (var i = 0; i < currentObstacle.objects.length; i++) {
         if (app.ship.boundingBox1.collidesWith(currentObstacle.objects[i].boundingBox)) {
             if (currentObstacle.objects[i].boundingBox.rotation != 0) {
-                console.log("HI");
                 app.ship.isMovingUp = true;
             }
         }

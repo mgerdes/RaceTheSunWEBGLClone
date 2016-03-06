@@ -140,3 +140,6 @@ app.Obstacle0.prototype.draw = function(shader) {
         this.objects[i].draw(shader);
     }
 };
+
+app.Obstacle0.prototype.update = function(timeDelta) {
+};

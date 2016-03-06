@@ -23,13 +23,15 @@ app.ObstacleMap.prototype.currentObstacle = function() {
 };
 
 app.ObstacleMap.prototype.randomObstacle = function(position) {
-    var rand = Math.floor(Math.random() * 3);
+    var rand = Math.floor(Math.random() * 4);
     if (rand == 0) {
         return new app.Obstacle0(position);
     } else if (rand == 1) {
         return new app.Obstacle1(position);
-    } else {
+    } else if (rand == 2) {
         return new app.Obstacle3(position);
+    } else if (rand == 3) {
+        return new app.Obstacle4(position);
     }
 };
 
@@ -45,7 +47,7 @@ app.ObstacleMap.prototype.drawObstacles = function(shader) {
 app.ObstacleMap.prototype.updateObstacles = function(timeDelta) {
     for (var row = 0; row < this.numberRows; row++) {
         for (var col = 0; col < this.numberCols; col++) {
-            //this.map[row][col].update(timeDelta);
+            this.map[row][col].update(timeDelta);
         }
     }
 };
