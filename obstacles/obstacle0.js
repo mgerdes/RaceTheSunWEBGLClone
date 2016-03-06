@@ -107,20 +107,22 @@ app.Obstacle0 = function(position) {
     var box12Scale = new app.math.Vector3(PASSAGE_WIDTH / 2,
                                           WALL_DEPTH,
                                           WALL_6_AND_7_LENGTH / 2);
+    
+    var color = new app.math.Vector3(0.1, 0.1, 0.1);
 
     this.objects = [];
-    this.objects.push(new app.objects.Box(box1Position, box1Scale));
-    this.objects.push(new app.objects.Box(box2Position, box2Scale));
-    this.objects.push(new app.objects.Box(box3Position, box3Scale));
-    this.objects.push(new app.objects.Box(box4Position, box4Scale));
-    this.objects.push(new app.objects.Box(box5Position, box5Scale));
-    this.objects.push(new app.objects.Box(box6Position, box6Scale));
-    this.objects.push(new app.objects.Box(box7Position, box7Scale));
-    this.objects.push(new app.objects.Box(box8Position, box8Scale));
-    this.objects.push(new app.objects.Box(box9Position, box9Scale));
-    this.objects.push(new app.objects.Box(box10Position, box10Scale));
-    this.objects.push(new app.objects.Box(box11Position, box11Scale));
-    this.objects.push(new app.objects.Box(box12Position, box12Scale));
+    this.objects.push(new app.objects.Box(box1Position, box1Scale, color));
+    this.objects.push(new app.objects.Box(box2Position, box2Scale, color));
+    this.objects.push(new app.objects.Box(box3Position, box3Scale, color));
+    this.objects.push(new app.objects.Box(box4Position, box4Scale, color));
+    this.objects.push(new app.objects.Box(box5Position, box5Scale, color));
+    this.objects.push(new app.objects.Box(box6Position, box6Scale, color));
+    this.objects.push(new app.objects.Box(box7Position, box7Scale, color));
+    this.objects.push(new app.objects.Box(box8Position, box8Scale, color));
+    this.objects.push(new app.objects.Box(box9Position, box9Scale, color));
+    this.objects.push(new app.objects.Box(box10Position, box10Scale, color));
+    this.objects.push(new app.objects.Box(box11Position, box11Scale, color));
+    this.objects.push(new app.objects.Box(box12Position, box12Scale, color));
 
     var rampPosition = new app.math.Vector3(position.x, position.y, position.z - 20);
     this.objects.push(new app.objects.Ramp(rampPosition, 0.4));
