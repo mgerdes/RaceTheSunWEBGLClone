@@ -23,7 +23,7 @@ app.ObstacleMap.prototype.currentObstacle = function() {
 };
 
 app.ObstacleMap.prototype.randomObstacle = function(position) {
-    var rand = Math.floor(Math.random() * 4);
+    var rand = Math.floor(Math.random() * 5);
     if (rand == 0) {
         return new app.Obstacle0(position);
     } else if (rand == 1) {
@@ -32,6 +32,8 @@ app.ObstacleMap.prototype.randomObstacle = function(position) {
         return new app.Obstacle3(position);
     } else if (rand == 3) {
         return new app.Obstacle4(position);
+    } else if (rand == 4) {
+        return new app.Obstacle5(position);
     }
 };
 
