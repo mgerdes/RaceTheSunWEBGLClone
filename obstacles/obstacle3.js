@@ -84,6 +84,24 @@ app.Obstacle3 = function(position) {
     this.objects.push(new app.objects.Box(box5Side1Position, depthSideBoxScale, color));
     this.objects.push(new app.objects.Box(box5Side2Position, widthSideBoxScale, color));
     this.objects.push(new app.objects.Box(box5Side3Position, depthSideBoxScale, color));
+
+    this.addLeftOvers(position);
+};
+
+app.Obstacle3.prototype.addLeftOvers = function(position) {
+    for (var i = 0; i < 50; i++) {
+        var xOffset = Math.random() * 200 - 100; 
+        var zOffset = Math.random() * 200;
+
+        if (xOffset >= -95 && xOffset <= 95 && zOffset <= 60 && zOffset >= 30) {
+            continue;
+        }
+
+        var boxPosition = new app.math.Vector3(position.x + xOffset, position.y + 1.0, position.z + zOffset);
+        var boxScale = new app.math.Vector3(2.0, 2.0, 2.0);
+
+        this.objects.push(new app.objects.Box(boxPosition, boxScale));
+    }
 };
 
 app.Obstacle3.prototype.shiftZUnits = function(unitsToShift) {

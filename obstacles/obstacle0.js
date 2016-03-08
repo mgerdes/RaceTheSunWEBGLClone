@@ -124,6 +124,13 @@ app.Obstacle0 = function(position) {
     this.objects.push(new app.objects.Box(box11Position, box11Scale, color));
     this.objects.push(new app.objects.Box(box12Position, box12Scale, color));
 
+    this.addLeftOvers(position);
+
+    var rampPosition = new app.math.Vector3(position.x, position.y, position.z - 20);
+    this.objects.push(new app.objects.Ramp(rampPosition, 0.4));
+};
+
+app.Obstacle0.prototype.addLeftOvers = function(position) {
     for (var i = 0; i < 50; i++) {
         var xOffset = Math.random() * 200 - 100; 
         var zOffset = Math.random() * 200;
@@ -142,9 +149,6 @@ app.Obstacle0 = function(position) {
 
         this.objects.push(new app.objects.Box(boxPosition, boxScale));
     }
-
-    var rampPosition = new app.math.Vector3(position.x, position.y, position.z - 20);
-    this.objects.push(new app.objects.Ramp(rampPosition, 0.4));
 };
 
 app.Obstacle0.prototype.shiftZUnits = function(unitsToShift) {

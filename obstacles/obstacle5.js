@@ -48,6 +48,24 @@ app.Obstacle5 = function(position) {
     this.objects.push(new app.objects.RotatedBox(box13Position, boxScale, boxRotationAxis, 0.0, boxTranslate3, boxColor));
     this.objects.push(new app.objects.RotatedBox(box14Position, boxScale, boxRotationAxis, 0.0, boxTranslate3, boxColor));
     this.objects.push(new app.objects.RotatedBox(box15Position, boxScale, boxRotationAxis, 0.0, boxTranslate3, boxColor));
+    
+    this.addLeftOvers(position);
+};
+
+app.Obstacle5.prototype.addLeftOvers = function(position) {
+    for (var i = 0; i < 50; i++) {
+        var xOffset = Math.random() * 200 - 100; 
+        var zOffset = Math.random() * 200;
+
+        if (xOffset >= -50 && xOffset <= 50 && zOffset <= 90 && zOffset >= 10) {
+            continue;
+        }
+
+        var boxPosition = new app.math.Vector3(position.x + xOffset, position.y + 1.0, position.z + zOffset);
+        var boxScale = new app.math.Vector3(2.0, 2.0, 2.0);
+
+        this.objects.push(new app.objects.Box(boxPosition, boxScale));
+    }
 };
 
 app.Obstacle5.prototype.draw = function(shader) {
