@@ -15,11 +15,11 @@ app.ObstacleMap = function() {
     this.nextRow = this.numberRows;
 };
 
-app.ObstacleMap.prototype.numberRows = 3;
+app.ObstacleMap.prototype.numberRows = 4;
 app.ObstacleMap.prototype.numberCols = 3;
 
 app.ObstacleMap.prototype.currentObstacle = function() {
-    return this.map[0][Math.floor(this.numberCols / 2)];
+    return this.map[1][Math.floor(this.numberCols / 2)];
 };
 
 app.ObstacleMap.prototype.randomObstacle = function(position) {

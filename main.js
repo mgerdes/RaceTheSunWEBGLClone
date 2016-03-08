@@ -44,7 +44,7 @@ app.initApp = function() {
     app.shaders["plane_shader"] = new app.Shader("plane-shader-fs", "plane-shader-vs");
 
     app.ship = new app.objects.Ship();
-    app.ship.position.z -= 40;
+    app.ship.position.z += 120;
 
     var camera_position = new app.math.Vector3(0, 0.0, 0);
     var camera_center = new app.math.Vector3(0, 0.0, 0);
