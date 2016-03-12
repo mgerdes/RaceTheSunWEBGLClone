@@ -151,12 +151,14 @@
             varying highp vec3 fragPosition;
 
             void main(void) {
-                fragPosition = (viewMat * modelMat * vec4(vertexPosition, 1.0)).xyz;
-
                 highp vec4 worldPosition = modelMat * vec4(vertexPosition, 1.0);
                 highp float projectedAxis = 
                         lightPosition.z - (lightPosition.z - worldPosition.z) * (lightPosition.y + 1.0) / (lightPosition.y - worldPosition.y);
-                gl_Position = projMat * viewMat * vec4(worldPosition.x, -0.99, projectedAxis, 1.0);
+
+                highp vec4 worldShadowPosition = vec4(worldPosition.x, -0.99, projectedAxis, 1.0);
+                fragPosition = (viewMat * worldShadowPosition).xyz;
+
+                gl_Position = projMat * vec4(fragPosition, 1.0);
             }
         </script>
 
