@@ -44,7 +44,7 @@ app.initApp = function() {
     app.shaders["plane_shader"] = new app.Shader("plane-shader-fs", "plane-shader-vs");
 
     app.ship = new app.objects.Ship();
-    app.ship.position.z += 120;
+    app.ship.position.z -= 300;
 
     var camera_position = new app.math.Vector3(0, 0.0, 0);
     var camera_center = new app.math.Vector3(0, 0.0, 0);
@@ -125,7 +125,7 @@ app.gameLoop = function() {
 };
 
 app.updateScene = function(timeDelta) {
-    if (app.shipZPositionAtStartOfObstacle + 200 < app.ship.position.z) {
+    if (app.ship.position.z > 200 && app.shipZPositionAtStartOfObstacle + 200 < app.ship.position.z) {
         app.shipZPositionAtStartOfObstacle = app.ship.position.z;
         app.obstaclesMap.shiftDown();
     }
