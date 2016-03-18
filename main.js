@@ -36,66 +36,71 @@ app.initWebGL = function(canvas) {
     return gl;
 };
 
-app.initApp = function() {
+app.initShaders = function() {
     app.shaders = {};
     app.shaders["default_shader"] = new app.Shader("shader-fs", "shader-vs");
     app.shaders["bounding_box_shader"] = new app.Shader("bounding-box-shader-fs", "bounding-box-shader-vs");
     app.shaders["shadow_shader"] = new app.Shader("shadow-shader-fs", "shadow-shader-vs");
     app.shaders["plane_shader"] = new app.Shader("plane-shader-fs", "plane-shader-vs");
+};
 
+app.initShip = function() {
     app.ship = new app.objects.Ship();
     app.ship.position.z -= 300;
+    app.shipZPositionAtStartOfObstacle = app.ship.position.z;
+    app.shipDeltaZ = 1.0;
+};
 
+app.initCamera = function() {
     var camera_position = new app.math.Vector3(0, 0.0, 0);
     var camera_center = new app.math.Vector3(0, 0.0, 0);
     var camera_up = new app.math.Vector3(0, 1, 0);
-    app.deltaZ = 1.0;
     var screen_width = window.screen.width;
     var screen_height = window.screen.height;
     app.camera = new app.Camera(camera_position, camera_center, camera_up, screen_width, screen_height);
+};
 
-    app.plane = new app.objects.Plane(new app.math.Vector3(0, -1, 0));
+app.initObstacleMap = function() {
     app.obstaclesMap = new app.ObstacleMap();
-    app.shipZPositionAtStartOfObstacle = app.ship.position.z;
+};
 
-    app.isKeyPressed = {};
-
+app.initKeyBindings = function() {
     document.onkeydown = function (event) {
         if (event.keyCode == 81) {
-            app.deltaZ += 0.1;
-            console.log("deltaZ = " + app.deltaZ + 
+            app.shipDeltaZ += 0.1;
+            console.log("deltaZ = " + app.shipDeltaZ + 
                         ", camPos.y = " + app.camera.position.y +
                         ", camCenter.y = " + app.camera.center.y);
         }
         if (event.keyCode == 65) {
-            app.deltaZ -= 0.1;
-            console.log("deltaZ = " + app.deltaZ + 
+            app.shipDeltaZ -= 0.1;
+            console.log("deltaZ = " + app.shipDeltaZ + 
                         ", camPos.y = " + app.camera.position.y +
                         ", camCenter.y = " + app.camera.center.y);
         }
 
         if (event.keyCode == 87) {
             app.camera.position.y += 0.1;
-            console.log("deltaZ = " + app.deltaZ + 
+            console.log("deltaZ = " + app.shipDeltaZ + 
                         ", camPos.y = " + app.camera.position.y +
                         ", camCenter.y = " + app.camera.center.y);
         }
         if (event.keyCode == 83) {
             app.camera.position.y -= 0.1;
-            console.log("deltaZ = " + app.deltaZ + 
+            console.log("deltaZ = " + app.shipDeltaZ + 
                         ", camPos.y = " + app.camera.position.y +
                         ", camCenter.y = " + app.camera.center.y);
         }
 
         if (event.keyCode == 69) {
             app.camera.center.y += 0.1;
-            console.log("deltaZ = " + app.deltaZ + 
+            console.log("deltaZ = " + app.shipDeltaZ + 
                         ", camPos.y = " + app.camera.position.y +
                         ", camCenter.y = " + app.camera.center.y);
         }
         if (event.keyCode == 68) {
             app.camera.center.y -= 0.1;
-            console.log("deltaZ = " + app.deltaZ + 
+            console.log("deltaZ = " + app.shipDeltaZ + 
                         ", camPos.y = " + app.camera.position.y +
                         ", camCenter.y = " + app.camera.center.y);
         }
@@ -117,6 +122,21 @@ app.initApp = function() {
     };
 };
 
+app.initPlane = function() {
+    app.plane = new app.objects.Plane(new app.math.Vector3(0, -1, 0));
+};
+
+app.initApp = function() {
+    app.initShaders();
+    app.initShip();
+    app.initCamera();
+    app.initObstacleMap();
+    app.initKeyBindings();
+    app.initPlane();
+
+    app.isDoingOpeningAnimation = true;
+};
+
 app.gameLoop = function() {
     app.updateScene(0.015);
     app.gl.clear(app.gl.COLOR_BUFFER_BIT | app.gl.DEPTH_BUFFER_BIT);
@@ -133,7 +153,7 @@ app.updateScene = function(timeDelta) {
     app.handleCollisions();
 
     app.camera.center.z = app.ship.position.z;
-    app.camera.position.z = app.ship.position.z - app.deltaZ;
+    app.camera.position.z = app.ship.position.z - app.shipDeltaZ;
 
     app.camera.center.y = app.ship.position.y + 0.4;
     app.camera.position.y = app.ship.position.y + 0.4;
