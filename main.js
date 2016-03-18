@@ -46,14 +46,14 @@ app.initShaders = function() {
 
 app.initShip = function() {
     app.ship = new app.objects.Ship();
-    app.ship.position.z -= 300;
+    app.ship.position.z -= 200;
     app.shipZPositionAtStartOfObstacle = app.ship.position.z;
     app.shipDeltaZ = 1.0;
 };
 
 app.initCamera = function() {
-    var camera_position = new app.math.Vector3(0, 0.0, 0);
-    var camera_center = new app.math.Vector3(0, 0.0, 0);
+    var camera_position = new app.math.Vector3(0, 0, 0);
+    var camera_center = new app.math.Vector3(0, 0, 0);
     var camera_up = new app.math.Vector3(0, 1, 0);
     var screen_width = window.screen.width;
     var screen_height = window.screen.height;
@@ -152,14 +152,16 @@ app.updateScene = function(timeDelta) {
 
     app.handleCollisions();
 
-    app.camera.center.z = app.ship.position.z;
-    app.camera.position.z = app.ship.position.z - app.shipDeltaZ;
+    if (!app.isDoingOpeningAnimation) {
+        app.camera.center.z = app.ship.position.z;
+        app.camera.position.z = app.ship.position.z - app.shipDeltaZ;
 
-    app.camera.center.y = app.ship.position.y + 0.4;
-    app.camera.position.y = app.ship.position.y + 0.4;
+        app.camera.center.y = app.ship.position.y + 0.4;
+        app.camera.position.y = app.ship.position.y + 0.4;
 
-    app.camera.center.x = app.ship.position.x;
-    app.camera.position.x = app.ship.position.x;
+        app.camera.center.x = app.ship.position.x;
+        app.camera.position.x = app.ship.position.x;
+    }
 
     for (shaderName in app.shaders) {
         app.shaders[shaderName].setMat4Property("projMat", app.camera.projectionMatrix);
@@ -167,6 +169,34 @@ app.updateScene = function(timeDelta) {
     }
 
     app.plane.update(timeDelta);
+
+    if (app.isDoingOpeningAnimation) {
+        if (app.ship.position.z > -100) {
+            app.isDoingOpeningAnimation = false;
+        }
+
+        if (app.ship.position.z < -180) {
+            app.camera.position.x = 4;
+            app.camera.position.y = -0.5;
+            app.camera.position.z = -180;
+        } else {
+            var xDelta = (app.ship.position.x - app.camera.position.x) * 2;
+            var yDelta = (app.ship.position.y + 0.4 - app.camera.position.y) * 2;
+            var zDelta = (app.ship.position.z + 18.0 - app.camera.position.z) * 2;
+
+            //console.log("camera.z = " + app.camera.position.z);
+            //console.log("ship.z = " + app.ship.position.z);
+
+            app.camera.position.x = app.camera.position.x + xDelta * timeDelta;
+            app.camera.position.y = app.camera.position.y + yDelta * timeDelta;
+            app.camera.position.z = app.camera.position.z + zDelta * timeDelta;
+        }
+
+        app.camera.center.x = app.ship.position.x;
+        app.camera.center.y = app.ship.position.y + 0.4;
+        app.camera.center.z = app.ship.position.z;
+    }
+
     app.ship.update(timeDelta);
     app.obstaclesMap.updateObstacles(timeDelta);
     app.camera.updateViewMatrix();
