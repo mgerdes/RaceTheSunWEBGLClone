@@ -1,1 +1,2 @@
-Things are currently here: [mgerdes.me](http://mgerdes.me/)
+# Race The Sun Clone
+Things are currently here: [mgerdes.me/RTS/index.html](http://mgerdes.me/RTS/index.html)
